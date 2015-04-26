@@ -10,9 +10,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <title><?php wp_title('|', true, 'right'); ?></title>
+<link href="/wp-includes/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
 <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
+<script type="application/javascript" src="/wp-includes/bootstrap/js/bootstrap.min.js"></script>
 <?php if(is_home()){$wrap_class = "home-site";}else{$wrap_class = "site";}?>
 <div class="<?php echo $wrap_class;?>">
 	<header class="home-header">
