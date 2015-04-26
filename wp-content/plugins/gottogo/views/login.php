@@ -6,25 +6,18 @@ function html_form_code()
 {
     ?>
     <script>
-        $(document).ready(function(){
-            $("#registerBtn").click(function(){
-                alert('Hello');
-                $("#signin").hide();
-                $("#register").show();
-            });
-            $("#back").click(function(){
-                $("#register").hide();
-                $("#signin").show();
-            });
-        });
+        function toggler(divId) {
+            $("#signin").hide();
+            $("#" + divId).show();
+        }
     </script>
-    <div class="row" id="singin">
+    <div class="row" id="signin">
         <div class="col-xs-6">
             <div class="well">
                 <form action="" method="post" id="login_form" enctype="application/x-www-form-urlencoded">
                     <div class="form-group">
                         <label for="login_email" class="control-label">Електронна поща</label>
-                        <input type="text" class="form-control" id="login_email" name="login_email"
+                        <input type="email" class="form-control" id="login_email" name="login_email"
                                value="" placeholder="example@gmail.com" required>
                         <span class="help-block"></span>
                     </div>
@@ -43,25 +36,50 @@ function html_form_code()
         <div class="col-xs-6">
             <p class="lead">Регистрирайте се <span class="text-success">БЕЗПЛАТНО</span></p>
             <ul class="list-unstyled" style="line-height: 2">
-                <li><span class="fa fa-check text-success"></span> See all your orders</li>
-                <li><span class="fa fa-check text-success"></span> Fast re-order</li>
-                <li><span class="fa fa-check text-success"></span> Save your favorites</li>
-                <li><span class="fa fa-check text-success"></span> Fast checkout</li>
-                <li><span class="fa fa-check text-success"></span> Get a gift <small>(only new customers)</small></li>
+                <li><span class="fa fa-check text-success"></span> Планирайте разходите си</li>
+                <li><span class="fa fa-check text-success"></span> Проверете багажа си</li>
+                <li><span class="fa fa-check text-success"></span> Оптимизирайте маршрута си</li>
+                <li><span class="fa fa-check text-success"></span> Открийте нови интересни места</li>
+                <li><span class="fa fa-check text-success"></span> Само с няколко клика<small>(only new customers)</small></li>
                 <li><a href="/read-more/"><u>Read more</u></a></li>
             </ul>
-            <p><button class="btn btn-info btn-block" id="registerBtn">Регистрация</button></p>
+            <p><button class="btn btn-info btn-block" id="registerBtn" data-toggle="collapse">Регистрация</button></p>
         </div>
     </div>
-    <!--<div class="two_third">
-        <div class="contact-area">
-            <form class="contact-form" action="" method="post" id="login_form" enctype="application/x-www-form-urlencoded">
-                <input id="login_email" tabindex="4" name="login_email" size="22" type="text" placeholder="Email"/>
-                <input id="login_password" tabindex="5" name="login_password" size="22" type="password" placeholder="Парола"/>
-                <input id="login_action" name="login_action" type="submit" value="Вход"/>
-            </form>
+    <div class="row" id="signin">
+        <div class="col-xs-6">
+            <div class="well">
+                <form action="" method="post" id="register_form" enctype="application/x-www-form-urlencoded">
+                    <div class="form-group">
+                        <label for="register_fullname" class="control-label">Вашето име</label>
+                        <input type="text" class="form-control" id="register_fullname" name="register_fullname"
+                               value="" placeholder="Peter Stevens" required>
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="register_email" class="control-label">Електронна поща</label>
+                        <input type="email" class="form-control" id="register_email" name="register_email"
+                               value="" placeholder="example@gmail.com" required>
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="register_password" class="control-label">Парола</label>
+                        <input type="password" class="form-control" id="register_password"
+                               name="register_password" value="" required>
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="register_password_confirm" class="control-label">Потвърдете паролата</label>
+                        <input type="password" class="form-control" id="register_password_confirm"
+                               name="register_password_confirm" value="" required>
+                        <span class="help-block"></span>
+                    </div>
+                    <div id="registerErrorMsg" class="alert alert-error hide">Error</div>
+                    <button type="submit" class="btn btn-success btn-block" id="register_action" name="register_action">Регистрация</button>
+                </form>
+            </div>
         </div>
-    </div> -->
+    </div>
 <?php
 
 }
