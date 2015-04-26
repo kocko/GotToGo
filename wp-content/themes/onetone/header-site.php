@@ -10,9 +10,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <title><?php wp_title('|', true, 'right'); ?></title>
+
 <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
+
 <div class="site">
 	<header class="site-header">
 		<div class="site-logo onetone-logo">
