@@ -80,6 +80,22 @@ function html_form_code()
             </div>
         </div>
     </div>
+    <div class="forgottenPassword">
+        <div class="col-xs-6">
+            <div class="well">
+                <form action="" method="post" id="register_form" enctype="application/x-www-form-urlencoded">
+                    <div class="form-group">
+                        <label for="forgotten_password_email" class="control-label">Електронна поща</label>
+                        <input type="email" class="form-control" id="forgotten_password_email" name="forgotten_password_email"
+                               value="" placeholder="example@gmail.com" required>
+                        <span class="help-block"></span>
+                    </div>
+                    <div id="forgottenPasswordMsg" class="alert alert-error hide">Success</div>
+                    <button type="submit" class="btn btn-success btn-block" id="register_action" name="register_action">Изпрати нова парола</button>
+                </form>
+            </div>
+        </div>
+    </div>
 <?php
 
 }
