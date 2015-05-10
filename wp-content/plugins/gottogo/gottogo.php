@@ -8,7 +8,10 @@ Author: Konstantin Yovkov
 Author URI: http://w3guy.com
 */
 
-require_once 'views/login.php';
+require_once 'views/database.php';
+require_once 'views/login/login.php';
+require_once 'views/login/register.php';
+require_once 'views/login/forgotten_password.php';
 
 function loginform_shortcode()
 {
@@ -18,6 +21,19 @@ function loginform_shortcode()
     forgotten_password_action();
     html_form_code();
     return ob_get_clean();
+}
+
+function html_form_code() {
+    initializeJS();
+    getLoginForm();
+    getRegisterForm();
+    getForgottenPasswordForm();
+}
+
+function initializeJS() {
+    ?>
+    <script src="wp-content/plugins/gottogo/views/js/gottogo.js"></script>
+    <?php
 }
 
 

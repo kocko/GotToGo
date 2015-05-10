@@ -11,6 +11,3 @@ $result = mysql_query($query, $GLOBALS['connection']);
 $row = mysql_fetch_assoc($result);
 
 echo $row['total'] == 0 ? 0 : 1;
-
-
-
