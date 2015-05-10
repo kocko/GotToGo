@@ -94,10 +94,13 @@ function html_form_code()
                         <span class="help-block"></span>
                     </div>
                     <div id="registerErrorMsg" class="alert alert-error hide">Error</div>
-                    <button type="submit" class="btn btn-success btn-block" id="register_action" name="register_action">Регистрация</button>
-                    </div>
+                    <button type="submit" class="btn btn-success btn-block"
+                            id="register_action" name="register_action">
+                        Регистрация
+                    </button>
                 </form>
             </div>
+        </div>
         <div class="col-xs-12 col-md-6">
         Вече имате акаунт?
         <button class="btn btn-success btn-block" id="register_action"
@@ -111,7 +114,7 @@ function html_form_code()
         <div class="row">
             <div class="col-xs-12 col-md-6">
                 <div class="well">
-                    <form action="" method="post" id="register_form" enctype="application/x-www-form-urlencoded">
+                    <form action="" method="post" id="forgotten_password_form" enctype="application/x-www-form-urlencoded">
                         <div class="form-group">
                             <label for="forgotten_password_email" class="control-label">Електронна поща</label>
                             <input type="email" class="form-control" id="forgotten_password_email" name="forgotten_password_email"
@@ -119,7 +122,8 @@ function html_form_code()
                             <span class="help-block"></span>
                         </div>
                         <div id="forgottenPasswordMsg" class="alert alert-error hide">Success</div>
-                        <button type="submit" class="btn btn-success btn-block" id="register_action" name="register_action">Изпрати нова парола</button>
+                        <button type="submit" class="btn btn-success btn-block"
+                                id="forgotten_password_action" name="forgotten_password_action">Изпрати нова парола</button>
                     </form>
                 </div>
             </div>
@@ -129,13 +133,13 @@ function html_form_code()
 
 }
 
-function login_action()
-{
+function login_action() {
     if (isset($_POST['login_action'])) {
         $email = sanitize_text_field($_POST['login_email']);
         $password = sanitize_text_field($_POST['login_password']);
 
-        $query = sprintf("SELECT * FROM users WHERE email='%s' AND password='%s'", mysql_real_escape_string($email), mysql_real_escape_string($password));
+        $query = sprintf("SELECT * FROM users WHERE email='%s' AND password='%s'",
+                         mysql_real_escape_string($email), mysql_real_escape_string($password));
 
         $result = mysql_query($query);
 
@@ -155,19 +159,25 @@ function login_action()
 }
 
 function register_action() {
-    if (isset($_POST['register_form'])) {
-        wp_mail('konstantin.yovkov@gmail.com', 'Test', "Hello, Kocko", null, null);
+    if (isset($_POST['register_action'])) {
+        $name = sanitize_text_field($_POST['register_fullname']);
+        $email = sanitize_text_field($_POST['register_email']);
+        $password = sanitize_text_field($_POST['register_password']);
+
+        $passwordSalted = md5($password);
+
+        $query = sprintf("INSERT INTO users (email, password, fullname) values ('%s','%s', '%s')",
+                         mysql_real_escape_string($email), mysql_real_escape_string($passwordSalted), mysql_real_escape_string($name));
+
+
+        $result = mysql_query($query, $GLOBALS['connection']);
+        if (!$result) {
+            die ("Could not enter data: " . mysql_error());
+        } else {
+            wp_mail($email, "Successful registration in Gottoto", "Hello, " . $name . "!" , null, null);
+            echo "Success";
+        }
     }
 }
-
-function cf_shortcode()
-{
-    ob_start();
-    login_action();
-    html_form_code();
-    return ob_get_clean();
-}
-
-add_shortcode('sitepoint_contact_form', 'cf_shortcode');
 
 ?>
