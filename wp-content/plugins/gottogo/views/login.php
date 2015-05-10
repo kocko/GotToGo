@@ -22,6 +22,18 @@ function html_form_code()
             }
         }
 
+        function validateEmail(componentId, errorMessageContainerId, successResult) {
+            var email = jQuery('#' + componentId).val();
+            jQuery.post("wp-content/plugins/gottogo/views/utils/checkEmail.php", { register_email : email },
+                function(result) {
+                    if (result == successResult) {
+                        jQuery('#' + errorMessageContainerId).show();
+                    } else {
+                        jQuery('#' + errorMessageContainerId).hide();
+                    }
+                });
+        }
+
     </script>
     <div class="row collapse in" id="signin" aria-expanded="true" aria-controls="loginCollapse">
         <div class="col-xs-12 col-md-6">
@@ -78,8 +90,12 @@ function html_form_code()
                     <div class="form-group">
                         <label for="register_email" class="control-label">Електронна поща</label>
                         <input type="email" class="form-control" id="register_email" name="register_email"
-                               value="" placeholder="example@gmail.com" required>
+                               value="" placeholder="example@gmail.com"
+                               required onblur="validateEmail('register_email', 'register_email_taken_alert', 1)">
                         <span class="help-block"></span>
+                    </div>
+                    <div class="alert alert-danger alert-dismissable collapse" role="alert" id="register_email_taken_alert">
+                        Има регистриран потребител с тази електронна поща!
                     </div>
                     <div class="form-group">
                         <label for="register_password" class="control-label">Парола</label>
@@ -93,7 +109,6 @@ function html_form_code()
                                name="register_password_confirm" value="" required onkeyup="validatePassword()">
                         <span class="help-block"></span>
                     </div>
-                    <div id="registerErrorMsg" class="alert alert-error hide">Error</div>
                     <button type="submit" class="btn btn-success btn-block"
                             id="register_action" name="register_action">
                         Регистрация
@@ -118,10 +133,13 @@ function html_form_code()
                         <div class="form-group">
                             <label for="forgotten_password_email" class="control-label">Електронна поща</label>
                             <input type="email" class="form-control" id="forgotten_password_email" name="forgotten_password_email"
-                                   value="" placeholder="example@gmail.com" required>
+                                   value="" placeholder="example@gmail.com"
+                                   required onblur="validateEmail('forgotten_password_email', 'forgotten_password_email_taken_alert', 0)">
                             <span class="help-block"></span>
                         </div>
-                        <div id="forgottenPasswordMsg" class="alert alert-error hide">Success</div>
+                        <div class="alert alert-danger alert-dismissable collapse" role="alert" id="forgotten_password_email_taken_alert">
+                            Няма регистриран потребител с тази електронна поща!
+                        </div>
                         <button type="submit" class="btn btn-success btn-block"
                                 id="forgotten_password_action" name="forgotten_password_action">Изпрати нова парола</button>
                     </form>
