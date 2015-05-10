@@ -25,13 +25,13 @@ function getRegisterForm() {
                     <div class="form-group">
                         <label for="register_password" class="control-label">Парола</label>
                         <input type="password" class="form-control" id="register_password"
-                               name="register_password" value="" required onchange="validatePassword()">
+                               name="register_password" value="" required onchange="validatePassword('register_password', 'register_password_confirm')">
                         <span class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label for="register_password_confirm" class="control-label">Потвърдете паролата</label>
                         <input type="password" class="form-control" id="register_password_confirm"
-                               name="register_password_confirm" value="" required onkeyup="validatePassword()">
+                               name="register_password_confirm" value="" required onkeyup="validatePassword('register_password', 'register_password_confirm')">
                         <span class="help-block"></span>
                     </div>
                     <button type="submit" class="btn btn-success btn-block"

@@ -16,4 +16,4 @@ function checkEmail($email) {
 
 $email = mysql_real_escape_string($_POST['register_email']);
 
-echo check_email_and_send_new_password($email);
+echo checkEmail($email);
