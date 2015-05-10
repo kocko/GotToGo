@@ -15,6 +15,7 @@ function loginform_shortcode()
     ob_start();
     login_action();
     register_action();
+    forgotten_password_action();
     html_form_code();
     return ob_get_clean();
 }
