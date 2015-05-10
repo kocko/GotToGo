@@ -6,13 +6,13 @@ function html_form_code()
 {
     ?>
     <script>
-        function toggler(divId) {
-            $("#signin").hide();
-            $("#" + divId).show();
+        function switchBetweenCollapsibleDivs(showId, hideId) {
+            jQuery('#' + showId).collapse('toggle');
+            jQuery('#' + hideId).collapse('toggle');
         }
     </script>
-    <div class="row" id="signin">
-        <div class="col-xs-6">
+    <div class="row collapse in" id="signin" aria-expanded="true" aria-controls="loginCollapse">
+        <div class="col-xs-12 col-md-6">
             <div class="well">
                 <form action="" method="post" id="login_form" enctype="application/x-www-form-urlencoded">
                     <div class="form-group">
@@ -29,11 +29,13 @@ function html_form_code()
                     </div>
                     <div id="loginErrorMsg" class="alert alert-error hide">Wrong username og password</div>
                     <button type="submit" class="btn btn-success btn-block" id="login_action" name="login_action">Вход</button>
-                    <a href="/forgot/" class="btn btn-default btn-block">Забравена парола?</a>
+                    <a class="btn btn-default btn-block" onclick="switchBetweenCollapsibleDivs('forgottenPassword', 'signin')">
+                        Забравена парола?
+                    </a>
                 </form>
             </div>
         </div>
-        <div class="col-xs-6">
+        <div class="col-xs-12 col-md-6">
             <p class="lead">Регистрирайте се <span class="text-success">БЕЗПЛАТНО</span></p>
             <ul class="list-unstyled" style="line-height: 2">
                 <li><span class="fa fa-check text-success"></span> Планирайте разходите си</li>
@@ -43,11 +45,16 @@ function html_form_code()
                 <li><span class="fa fa-check text-success"></span> Само с няколко клика<small>(only new customers)</small></li>
                 <li><a href="/read-more/"><u>Read more</u></a></li>
             </ul>
-            <p><button class="btn btn-info btn-block" id="registerBtn" data-toggle="collapse">Регистрация</button></p>
+            <p>
+                <button class="btn btn-info btn-block" id="registerBtn"
+                        onclick="switchBetweenCollapsibleDivs('register', 'signin')">
+                    Регистрация
+                </button>
+            </p>
         </div>
     </div>
-    <div class="row" id="signin">
-        <div class="col-xs-6">
+    <div class="row collapse" id="register" aria-expanded="false" aria-controls="registerCollapse">
+        <div class="col-xs-12 col-md-6">
             <div class="well">
                 <form action="" method="post" id="register_form" enctype="application/x-www-form-urlencoded">
                     <div class="form-group">
@@ -76,23 +83,33 @@ function html_form_code()
                     </div>
                     <div id="registerErrorMsg" class="alert alert-error hide">Error</div>
                     <button type="submit" class="btn btn-success btn-block" id="register_action" name="register_action">Регистрация</button>
+                    </div>
                 </form>
             </div>
+        <div class="col-xs-12 col-md-6">
+        Вече имате акаунт?
+        <button class="btn btn-success btn-block" id="register_action"
+                name="register_action" onclick="switchBetweenCollapsibleDivs('signin', 'register')">
+            Вход в системата
+        </button>
         </div>
     </div>
-    <div class="forgottenPassword">
-        <div class="col-xs-6">
-            <div class="well">
-                <form action="" method="post" id="register_form" enctype="application/x-www-form-urlencoded">
-                    <div class="form-group">
-                        <label for="forgotten_password_email" class="control-label">Електронна поща</label>
-                        <input type="email" class="form-control" id="forgotten_password_email" name="forgotten_password_email"
-                               value="" placeholder="example@gmail.com" required>
-                        <span class="help-block"></span>
-                    </div>
-                    <div id="forgottenPasswordMsg" class="alert alert-error hide">Success</div>
-                    <button type="submit" class="btn btn-success btn-block" id="register_action" name="register_action">Изпрати нова парола</button>
-                </form>
+
+    <div class="row collapse" id="forgottenPassword">
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <div class="well">
+                    <form action="" method="post" id="register_form" enctype="application/x-www-form-urlencoded">
+                        <div class="form-group">
+                            <label for="forgotten_password_email" class="control-label">Електронна поща</label>
+                            <input type="email" class="form-control" id="forgotten_password_email" name="forgotten_password_email"
+                                   value="" placeholder="example@gmail.com" required>
+                            <span class="help-block"></span>
+                        </div>
+                        <div id="forgottenPasswordMsg" class="alert alert-error hide">Success</div>
+                        <button type="submit" class="btn btn-success btn-block" id="register_action" name="register_action">Изпрати нова парола</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -122,6 +139,12 @@ function login_action()
         } else {
             echo "Невалидни потребителско име и парола";
         }
+    }
+}
+
+function register_action() {
+    if (isset($_POST['register_form'])) {
+        wp_mail('konstantin.yovkov@gmail.com', 'Test', "Hello, Kocko", null, null);
     }
 }
 
