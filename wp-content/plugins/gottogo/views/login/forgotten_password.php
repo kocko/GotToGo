@@ -2,6 +2,25 @@
 
 function getForgottenPasswordForm() {
 ?>
+    <script>
+        jQuery(function(){
+            jQuery("#send_new_password").click(function(){
+                var forgotten_password_email = jQuery('#forgotten_password_email').val();
+
+                jQuery.post("wp-content/plugins/gottogo/views/utils/generate_new_password.php",
+                    { forgotten_password_email : forgotten_password_email },
+                    function (result) {
+                        if (result == 'Success') {
+                            jQuery('#email_sent_info_message').show();
+                        } else {
+                            jQuery('#email_sent_info_message').hide();
+                        }
+                    }
+                );
+            });
+        });
+    </script>
+
     <div class="row collapse" id="forgottenPassword">
         <div class="row">
             <div class="col-xs-12 col-md-6">
@@ -17,44 +36,23 @@ function getForgottenPasswordForm() {
                         <div class="alert alert-danger alert-dismissable collapse" role="alert" id="forgotten_password_email_taken_alert">
                             Няма регистриран потребител с тази електронна поща!
                         </div>
-                        <button type="submit" class="btn btn-success btn-block"
-                                id="forgotten_password_action" name="forgotten_password_action">Изпрати нова парола</button>
+                        <a class="btn btn-success btn-block"
+                           id="send_new_password" name="send_new_password">Изпрати нова парола</a>
                     </form>
                 </div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <div class="alert alert-info collapse" id="email_sent_info_message">
+                    Изпратихме нова парола на посочената от Вас електронна поща!
+                </div>
+                Вече сте получили новата си парола?
+                <button class="btn btn-info btn-block" id="register_action"
+                        name="register_action" onclick="switchBetweenCollapsibleDivs('forgottenPassword', 'signin')">
+                    Вход в системата
+                </button>
             </div>
         </div>
     </div>
 <?php
 }
-
-function forgotten_password_action() {
-    if (isset($_POST['forgotten_password_action'])) {
-        $email = sanitize_text_field($_POST['forgotten_password_email']);
-        $newPassword = generate_new_password();
-
-        $newPasswordSalted = md5($newPassword);
-
-        $updateQuery = sprintf("UPDATE users set password = '%s' WHERE email = '%s'",
-            mysql_real_escape_string($newPasswordSalted), mysql_real_escape_string($email));
-
-        $result = mysql_query($updateQuery, $GLOBALS['connection']);
-        if (!$result) {
-            die ("Could not update your password: " .mysql_error());
-        } else {
-            wp_mail($email, "New password for Gottoto", "Your new password is: " . $newPassword , null, null);
-            echo "Success"; //TODO
-        }
-    }
-}
-
-function generate_new_password($length = 10) {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $randomString;
-}
-
 ?>

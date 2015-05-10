@@ -18,7 +18,6 @@ function loginform_shortcode()
     ob_start();
     login_action();
     register_action();
-    forgotten_password_action();
     html_form_code();
     return ob_get_clean();
 }
@@ -35,6 +34,5 @@ function initializeJS() {
     <script src="wp-content/plugins/gottogo/views/js/gottogo.js"></script>
     <?php
 }
-
 
 add_shortcode('gottogo_loginform', 'loginform_shortcode');

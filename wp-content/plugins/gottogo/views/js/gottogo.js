@@ -16,12 +16,15 @@ function validatePassword(first, second) {
 
 function validateEmail(componentId, errorMessageContainerId, successResult) {
     var email = jQuery('#' + componentId).val();
-    jQuery.post("wp-content/plugins/gottogo/views/utils/checkEmail.php", { register_email : email },
-        function(result) {
-            if (result == successResult) {
-                jQuery('#' + errorMessageContainerId).show();
-            } else {
-                jQuery('#' + errorMessageContainerId).hide();
+    if (email) {
+        jQuery.post("wp-content/plugins/gottogo/views/utils/checkEmail.php", {register_email: email},
+            function (result) {
+                if (result == successResult) {
+                    jQuery('#' + errorMessageContainerId).show();
+                } else {
+                    jQuery('#' + errorMessageContainerId).hide();
+                }
             }
-        });
+        );
+    }
 }
