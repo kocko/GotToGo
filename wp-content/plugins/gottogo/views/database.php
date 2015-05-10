@@ -6,12 +6,12 @@
   $db_name = "novtgu8m_trips"; // Database name 
 
   // Connect to server and select database.
-  $link = mysql_connect("$host", "$username", "$password") or die("cannot connect"); 
+  $connection = mysql_connect("$host", "$username", "$password") or die("cannot connect");
 
-  if (!$link) {
+  if (!$connection) {
       die('Could not connect: ' . mysql_error());
   }
 
-  mysql_select_db("$db_name")or die("cannot select DB");
+  mysql_select_db("$db_name") or die("cannot select DB");
 
 ?>
