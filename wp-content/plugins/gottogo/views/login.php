@@ -10,6 +10,18 @@ function html_form_code()
             jQuery('#' + showId).collapse('toggle');
             jQuery('#' + hideId).collapse('toggle');
         }
+
+        function validatePassword() {
+            var password = document.getElementById("register_password");
+            var confirm_password = document.getElementById("register_password_confirm");
+
+            if (password.value != confirm_password.value) {
+                confirm_password.setCustomValidity("Паролите не съвпадат!");
+            } else {
+                confirm_password.setCustomValidity('');
+            }
+        }
+
     </script>
     <div class="row collapse in" id="signin" aria-expanded="true" aria-controls="loginCollapse">
         <div class="col-xs-12 col-md-6">
@@ -72,13 +84,13 @@ function html_form_code()
                     <div class="form-group">
                         <label for="register_password" class="control-label">Парола</label>
                         <input type="password" class="form-control" id="register_password"
-                               name="register_password" value="" required>
+                               name="register_password" value="" required onchange="validatePassword()">
                         <span class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label for="register_password_confirm" class="control-label">Потвърдете паролата</label>
                         <input type="password" class="form-control" id="register_password_confirm"
-                               name="register_password_confirm" value="" required>
+                               name="register_password_confirm" value="" required onkeyup="validatePassword()">
                         <span class="help-block"></span>
                     </div>
                     <div id="registerErrorMsg" class="alert alert-error hide">Error</div>
