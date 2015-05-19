@@ -1,0 +1,10 @@
+INSERT INTO `luggage_item` VALUES (1,'Паспорт','Documents');
+INSERT INTO `luggage_item` VALUES (2,'Бордна карта','Documents');
+INSERT INTO `luggage_item` VALUES (3,'Четка за зъби','Hand luggage');
+INSERT INTO `luggage_item` VALUES (4,'Лаптоп', 'Devices');
+INSERT INTO `luggage_item` VALUES (5,'Таблет','Devices');
+INSERT INTO `luggage_item` VALUES (6,'Чорапи','Clothes');
+INSERT INTO `luggage_item` VALUES (7,'Яке','Clothes');
+INSERT INTO `luggage_item` VALUES (8,'Тениски','Clothes');
+INSERT INTO `luggage_item` VALUES (9,'Вратовръзка','Clothes');
+INSERT INTO `luggage_item` VALUES (10,'Аналгин','Medicines');

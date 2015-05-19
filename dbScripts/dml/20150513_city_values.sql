@@ -1,4 +1,3 @@
-
 INSERT INTO `city` VALUES (1,'Kabul','AFG','Kabol',1780000);
 INSERT INTO `city` VALUES (2,'Qandahar','AFG','Qandahar',237500);
 INSERT INTO `city` VALUES (3,'Herat','AFG','Herat',186800);
