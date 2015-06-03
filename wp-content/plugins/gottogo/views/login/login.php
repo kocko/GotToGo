@@ -68,7 +68,9 @@ function login_action() {
 
         $row = mysql_fetch_assoc($result);
         if ($row['fullname']) {
-            echo "Здравейте, " . $row['fullname'] . "!";
+            session_start();
+            $_SESSION['user'] = $row;
+            header("Location: /gottogo/wp-content/plugins/gottogo/views/site/index.php");
         } else {
             echo "Невалидни потребителско име и парола";
         }
