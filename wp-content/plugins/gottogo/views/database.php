@@ -13,5 +13,3 @@
   }
 
   mysql_select_db("$db_name") or die("cannot select DB");
-
-?>

@@ -45,7 +45,7 @@ function getLoginForm() {
         </div>
     </div>
 
-<?
+<?php
 }
 
 function login_action() {
@@ -74,5 +74,3 @@ function login_action() {
         }
     }
 }
-
-?>
