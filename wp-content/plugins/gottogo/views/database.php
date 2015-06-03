@@ -3,9 +3,8 @@
   $host = "localhost"; 
   $username = "novtgu8m"; 
   $password = "Hoffmann123@";
-  $db_name = "novtgu8m_trips"; // Database name 
+  $db_name = "novtgu8m_trips";
 
-  // Connect to server and select database.
   $connection = mysql_connect("$host", "$username", "$password") or die("cannot connect");
 
   if (!$connection) {
