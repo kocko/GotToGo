@@ -12,6 +12,8 @@ require_once("../../../../../wp-load.php");
 </head>
 <body <?php body_class(); ?>>
 <script type="application/javascript" src="/go/wp-includes/bootstrap/js/bootstrap.min.js"></script>
+<script data-require="jquery@*" data-semver="2.0.3" src="/go/wp-includes/js/typeahead.js/jquery-2.0.3.min.js"></script>
+<script src="/go/wp-includes/js/typeahead.js/bootstrap3-typeahead.js"></script>
 <?php if (is_home()) {
     $wrap_class = "home-site";
 } else {
