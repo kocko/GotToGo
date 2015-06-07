@@ -9,7 +9,6 @@ include_once 'head.php';
 <script>
     jQuery(function () {
         jQuery.getJSON('../utils/citiesAndCountries.php').done(function (data) {
-            alert(data[0]['city']);
             var sourceArray = [];
             for (i = 0; i < data.length; i++) {
                 sourceArray.push(data[i]['city'] + ", " +  data[i]['country']);
