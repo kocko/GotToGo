@@ -1,5 +1,5 @@
 <?php
-include_once 'head.php';
+    include_once 'head.php';
 ?>
 <head>
     <meta charset="<?php bloginfo('charset'); ?>"/>
@@ -10,7 +10,7 @@ include_once 'head.php';
     jQuery(function () {
         jQuery.getJSON('../utils/citiesAndCountries.php').done(function (data) {
             var sourceArray = [];
-            for (i = 0; i < data.length; i++) {
+            for (var i = 0; i < data.length; i++) {
                 sourceArray.push(data[i]['city'] + ", " +  data[i]['country']);
             }
             jQuery('input').typeahead({source: sourceArray});
