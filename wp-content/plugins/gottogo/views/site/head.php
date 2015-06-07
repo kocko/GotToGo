@@ -43,7 +43,7 @@ require_once("../../../../../wp-load.php");
                 <li class="onetone-menuitem"><a id="onetone-about-this-site" href="#about-this-site"><span>Моите пътувания</span></a></li>
                 <li class="onetone-menuitem"><a id="onetone-about-this-site" href="#about-this-site"><span>Ново пътуване</span></a></li>
                 <li class="onetone-menuitem"><a id="onetone-about-this-site" href="#about-this-site"><span>Профил</span></a></li>
-                <li class="onetone-menuitem"><a id="onetone-about-this-site" href="#about-this-site"><span>Изход</span></a></li>
+                <li class="onetone-menuitem"><a id="onetone-about-this-site" href="logout.php"><span>Изход</span></a></li>
             </ul>
         </nav>
         <div class="clear"></div>

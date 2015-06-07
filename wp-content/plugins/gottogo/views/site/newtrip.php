@@ -8,7 +8,7 @@
 
 <script>
     jQuery(function () {
-        jQuery.getJSON('../utils/citiesAndCountries.php').done(function (data) {
+        jQuery.getJSON('../utils/cities_and_countries.php').done(function (data) {
             var sourceArray = [];
             for (var i = 0; i < data.length; i++) {
                 sourceArray.push(data[i]['city'] + ", " +  data[i]['country']);
