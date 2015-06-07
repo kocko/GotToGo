@@ -1,5 +1,8 @@
 <?php
-require_once("../../../../../wp-load.php");
+    if (!isset($_SESSION)) {
+        header("Location: /go");
+    }
+    require_once("../../../../../wp-load.php");
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
