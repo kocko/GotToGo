@@ -6,5 +6,5 @@ session_start();
 if (isset($_SESSION['user'])) {
     echo "Hello, " . $_SESSION['user']['fullname'];
 } else {
-    echo header('Location: /gottogo');
+    echo header('Location: /go');
 }

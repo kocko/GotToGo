@@ -34,19 +34,14 @@ require_once("../../../../../wp-load.php");
             <?php } ?>
         </div>
 
-        <a class="home-navbar navbar" href="javascript:;"></a>
+        <a class="home-navbar navbar" href="javascript:"></a>
         <nav class="home-navigation top-nav">
             <ul>
                 <li class="onetone-menuitem"><a id="onetone-home" href="#home"><span>Начало</span></a></li>
-                <li class="onetone-menuitem"><a id="onetone-whats-next" href="#whats-next"><span>Какво следва?</span></a></li>
-                <li class="onetone-menuitem"><a id="onetone-useful" href="#useful"><span>Полезно</span></a></li>
-                <li class="onetone-menuitem"><a id="onetone-feedback" href="#feedback"><span>Обратна връзка</span></a></li>
-                <li class="onetone-menuitem"><a id="onetone-about-this-site" href="#about-this-site"><span>За сайта</span></a></li>
                 <li class="onetone-menuitem"><a id="onetone-about-this-site" href="#about-this-site"><span>Моите пътувания</span></a></li>
                 <li class="onetone-menuitem"><a id="onetone-about-this-site" href="#about-this-site"><span>Ново пътуване</span></a></li>
                 <li class="onetone-menuitem"><a id="onetone-about-this-site" href="#about-this-site"><span>Профил</span></a></li>
-                <li class="onetone-menuitem"><a id="onetone-about-this-site" href="#about-this-site"><span>Изход</span></a>
-                </li>
+                <li class="onetone-menuitem"><a id="onetone-about-this-site" href="#about-this-site"><span>Изход</span></a></li>
             </ul>
         </nav>
         <div class="clear"></div>
