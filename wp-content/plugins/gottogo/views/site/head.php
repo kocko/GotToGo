@@ -8,6 +8,7 @@
     <meta charset="<?php bloginfo('charset'); ?>"/>
     <title><?php wp_title('|', true, 'right'); ?></title>
     <link href="/go/wp-includes/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="/go/wp-includes/bootstrap/css/bootstrap-checkbox.css" type="text/css" rel="stylesheet">
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>

@@ -32,8 +32,57 @@
                             <button type="button" class="btn btn-success btn-block" disabled="true">Планирай обиколката </button>
                         </div>
                     </div>
+                    <?php organizeLuggage(); ?>
                 </form>
             </div>
         </div>
     </div>
+
 </div>
+
+<?php
+    function getLuggageItemsNavigationTabs() {
+        require_once '../utils/luggage_utils.php';
+
+?>
+    <ul class="nav nav-tabs" role="tablist">
+    <?php
+        $categories = getLuggageItemsCategories();
+        foreach ($categories as $category) {
+            ?><li role="presentation"><a href="#<?= $category; ?>" aria-controls="home" role="tab" data-toggle="tab"><?= $category; ?></a></li><?php
+        }
+    ?>
+    </ul>
+<?php
+    }
+?>
+<?php
+    function getLuggageTabPanels() {
+?>
+    <div class="tab-content">
+    <?php
+        $categories = getLuggageItemsCategories();
+        foreach ($categories as $category) {
+            ?>
+            <div role="tabpanel" class="tab-pane" id="<?= $category ?>">
+            <?php
+                $items = getLuggageItemsPerCategory($category);
+                foreach ($items as $item) {
+                    ?>
+                    <div class="checkbox checkbox-success">
+                        <input id="<?= $item; ?>" type="checkbox">
+                        <label for="<?= $item; ?>"><?= $item; ?></label>
+                    </div>
+                    <?php
+                }
+            ?>
+            </div>
+        <?php
+        }
+    }
+
+    function organizeLuggage() {
+        getLuggageItemsNavigationTabs();
+        getLuggageTabPanels();
+    }
+
