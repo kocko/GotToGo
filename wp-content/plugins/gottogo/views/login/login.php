@@ -29,12 +29,12 @@ function getLoginForm() {
         <div class="col-xs-12 col-md-6">
             <p class="lead">Регистрирайте се <span class="text-success">БЕЗПЛАТНО</span></p>
             <ul class="list-unstyled" style="line-height: 2">
-                <li><span class="fa fa-check text-success"></span> Планирайте разходите си</li>
-                <li><span class="fa fa-check text-success"></span> Проверете багажа си</li>
-                <li><span class="fa fa-check text-success"></span> Оптимизирайте маршрута си</li>
-                <li><span class="fa fa-check text-success"></span> Открийте нови интересни места</li>
-                <li><span class="fa fa-check text-success"></span> Само с няколко клика<small>(only new customers)</small></li>
-                <li><a href="/read-more/"><u>Read more</u></a></li>
+                <li><span class="fa fa-check text-success"></span> Планирайте бюджета си</li>
+                <li><span class="fa fa-check text-success"></span> Организирайте багажа си</li>
+                <li><span class="fa fa-check text-success"></span> Разпечатайте план в удобен вид</li>
+                <li><span class="fa fa-check text-success"></span> Отразете натрупания опит от предишно пътуване</li>
+                <li><span class="fa fa-check text-success"></span> Очаквайте скоро планиране на маршрут</li>
+                <li><a href="#about-this-site">Read more</a></li>
             </ul>
             <p>
                 <button class="btn btn-info btn-block" id="registerBtn"
