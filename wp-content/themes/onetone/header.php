@@ -36,7 +36,12 @@
         <a class="home-navbar navbar" href="javascript:;"></a>
         <nav class="home-navigation top-nav">
 <?php
-
+$bulgarian_mapping = array( "home" => "Начало",
+                            "login" => "Вход",
+                            "whats-next" => "Какво следва?",
+                            "useful" => "Полезно",
+                            "feedback" => "Обратна връзка",
+                            "about-this-site" => "За сайта");
  $onepage_menu = '';
  $section_num = onetone_options_array( 'section_num' ); 
  if(isset($section_num) && is_numeric($section_num ) && $section_num >0):
@@ -53,8 +58,12 @@
  if(trim($section_slug) !=""){
 	 $sanitize_title = $section_slug; 
 	 }
+     $bulgarian = "";
+     if (strcmp($sanitize_title, "home") == 0) {
+         $bulgarian = "Начало";
+     }
  $onepage_menu .= '<li  class="onetone-menuitem"><a id="onetone-'.$sanitize_title.'" href="#'.$sanitize_title.'" >
- <span>'.$section_menu.'</span></a></li>';
+ <span>'.$bulgarian_mapping[$sanitize_title].'</span></a></li>';
  }
  }
 endif;
