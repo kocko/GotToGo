@@ -13,7 +13,7 @@
     });
 </script>
 <div>
-    <div class="row collapse in" id="signin" aria-expanded="true" aria-controls="loginCollapse">
+    <div class="row in" id="newtrip" aria-expanded="true" aria-controls="loginCollapse">
         <div class="col-xs-12">
             <div class="well">
                 <form>
@@ -23,16 +23,24 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-4">
-                            <button type="button" class="btn btn-success btn-block">Планирай бюджет</button>
+                            <button type="button" class="btn btn-success btn-block" onclick="switchBetweenCollapsibleDivs('organizeLuggageDiv', 'organizeBudgetDiv')">Планиране на бюджет</button>
                         </div>
                         <div class="col-xs-4">
-                            <button type="button" class="btn btn-success btn-block">Планирай багаж</button>
+                            <button type="button" class="btn btn-success btn-block" onclick="switchBetweenCollapsibleDivs('organizeBudgetDiv', 'organizeLuggageDiv')">Организиране на багаж</button>
                         </div>
                         <div class="col-xs-4">
-                            <button type="button" class="btn btn-success btn-block" disabled="true">Планирай обиколката </button>
+                            <button type="button" class="btn btn-success btn-block" disabled="true">Планиране на маршрут </button>
                         </div>
                     </div>
-                    <?php organizeLuggage(); ?>
+                    <div class="row" style="height: 15pt;"></div>
+                    <div class="row">
+                        <div id="organizeBudgetDiv" aria-expanded="false" >
+                            budget here
+                        </div>
+                        <div id="organizeLuggageDiv" aria-expanded="true">
+                            <?php organizeLuggage(); ?>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -49,7 +57,7 @@
     <?php
         $categories = getLuggageItemsCategories();
         foreach ($categories as $category) {
-            ?><li role="presentation"><a href="#<?= $category; ?>" aria-controls="home" role="tab" data-toggle="tab"><?= $category; ?></a></li><?php
+            ?><li role="presentation"><a href="#<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>" aria-controls="home" role="tab" data-toggle="tab"><?= $category; ?></a></li><?php
         }
     ?>
     </ul>
@@ -64,7 +72,7 @@
         $categories = getLuggageItemsCategories();
         foreach ($categories as $category) {
             ?>
-            <div role="tabpanel" class="tab-pane" id="<?= $category ?>">
+            <div role="tabpanel" class="tab-pane" id="<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>">
             <?php
                 $items = getLuggageItemsPerCategory($category);
                 foreach ($items as $item) {

@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS `trip`;
+CREATE TABLE `trip` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `destination` char(35) NOT NULL DEFAULT '',
+  `user` bigint(20) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4080 DEFAULT CHARSET=utf8;
