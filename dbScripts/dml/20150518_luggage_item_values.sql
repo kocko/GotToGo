@@ -35,11 +35,11 @@ INSERT INTO `luggage_item` VALUES (29,'Гащеризон / Сукман','Об�
 INSERT INTO `luggage_item` VALUES (30,'Рокля / Пола','Облекло');
 INSERT INTO `luggage_item` VALUES (31,'Сако / Елек','Облекло');
 INSERT INTO `luggage_item` VALUES (32,'Костюм','Облекло');
-INSERT INTO `luggage_item` VALUES (33,'Шапка','Аксесоари');
-INSERT INTO `luggage_item` VALUES (34,'Ръкавици','Аксесоари');
-INSERT INTO `luggage_item` VALUES (35,'Шал','Аксесоари');
-INSERT INTO `luggage_item` VALUES (36,'Вратовръзка','Аксесоари');
-INSERT INTO `luggage_item` VALUES (37,'Папийонка','Аксесоари');
+INSERT INTO `luggage_item` VALUES (33,'Шапка','Облекло');
+INSERT INTO `luggage_item` VALUES (34,'Ръкавици','Облекло');
+INSERT INTO `luggage_item` VALUES (35,'Шал','Облекло');
+INSERT INTO `luggage_item` VALUES (36,'Вратовръзка','Облекло');
+INSERT INTO `luggage_item` VALUES (37,'Папийонка','Облекло');
 INSERT INTO `luggage_item` VALUES (38,'Пижама','Облекло');
 INSERT INTO `luggage_item` VALUES (39,'Халат','Облекло');
 INSERT INTO `luggage_item` VALUES (40,'Сутиен','Облекло');
