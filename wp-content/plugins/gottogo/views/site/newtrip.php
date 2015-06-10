@@ -57,7 +57,7 @@
     <?php
         $categories = getLuggageItemsCategories();
         foreach ($categories as $category) {
-            ?><li role="presentation"><a href="#<?= $category; ?>" aria-controls="home" role="tab" data-toggle="tab"><?= $category; ?></a></li><?php
+            ?><li role="presentation"><a href="#<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>" aria-controls="home" role="tab" data-toggle="tab"><?= $category; ?></a></li><?php
         }
     ?>
     </ul>
@@ -72,7 +72,7 @@
         $categories = getLuggageItemsCategories();
         foreach ($categories as $category) {
             ?>
-            <div role="tabpanel" class="tab-pane" id="<?= $category ?>">
+            <div role="tabpanel" class="tab-pane" id="<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>">
             <?php
                 $items = getLuggageItemsPerCategory($category);
                 foreach ($items as $item) {
