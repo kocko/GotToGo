@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="<?php bloginfo('charset'); ?>"/>
     <title><?php wp_title('|', true, 'right'); ?></title>
-    <link href="/go/wp-includes/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
-    <link href="/go/wp-includes/bootstrap/css/bootstrap-checkbox.css" type="text/css" rel="stylesheet">
+    <link href="<?= get_site_url(); ?>/wp-includes/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="<?= get_site_url(); ?>/wp-includes/bootstrap/css/bootstrap-checkbox.css" type="text/css" rel="stylesheet">
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-<script type="application/javascript" src="/go/wp-includes/bootstrap/js/bootstrap.min.js"></script>
-<script data-require="jquery@*" data-semver="2.0.3" src="/go/wp-includes/js/typeahead.js/jquery-2.0.3.min.js"></script>
-<script src="/go/wp-includes/js/typeahead.js/bootstrap3-typeahead.js"></script>
+<script type="application/javascript" src="<?= get_site_url(); ?>/wp-includes/bootstrap/js/bootstrap.min.js"></script>
+<script data-require="jquery@*" data-semver="2.0.3" src="<?= get_site_url(); ?>/wp-includes/js/typeahead.js/jquery-2.0.3.min.js"></script>
+<script src="<?= get_site_url(); ?>/wp-includes/js/typeahead.js/bootstrap3-typeahead.js"></script>
 <script src="../js/gottogo.js"></script>
 
 <?php if (is_home()) {

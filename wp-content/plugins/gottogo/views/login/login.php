@@ -70,7 +70,7 @@ function login_action() {
         if ($row['fullname']) {
             session_start();
             $_SESSION['user'] = $row;
-            header("Location: /go/wp-content/plugins/gottogo/views/site/index.php");
+            header('Location: ' . get_site_url() . '/wp-content/plugins/gottogo/views/site/index.php');
         } else {
             echo "Невалидни потребителско име и парола";
         }
