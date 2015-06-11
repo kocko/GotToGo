@@ -34,9 +34,6 @@
                     </div>
                     <div class="row" style="height: 15pt;"></div>
                     <div class="row">
-                        <div id="organizeBudgetDiv" aria-expanded="false" >
-                            budget here
-                        </div>
                         <div id="organizeLuggageDiv" aria-expanded="true">
                             <?php organizeLuggage(); ?>
                         </div>
