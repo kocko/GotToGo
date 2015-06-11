@@ -21,6 +21,7 @@
                         <label for="login_email" class="control-label">Дестинация:</label>
                         <input class="typeahead form-control" type="text" placeholder="Град, Държава">
                     </div>
+                    <div class="row" style="height: 15pt;"></div>
                     <div class="row">
                         <div class="col-xs-4">
                             <button type="button" class="btn btn-success btn-block" onclick="switchBetweenCollapsibleDivs('organizeLuggageDiv', 'organizeBudgetDiv')">Планиране на бюджет</button>
@@ -33,10 +34,11 @@
                         </div>
                     </div>
                     <div class="row" style="height: 15pt;"></div>
-                    <div class="row">
-                        <div id="organizeLuggageDiv" aria-expanded="true">
-                            <?php organizeLuggage(); ?>
-                        </div>
+                    <div class="row collapse" id="organizeBudgetDiv" aria-expanded="true" aria-controls="organizeBudgetCollapse">
+                        budget here
+                    </div>
+                    <div class="row collapse in" id="organizeLuggageDiv" aria-expanded="true">
+                        <?php organizeLuggage(); ?>
                     </div>
                 </form>
             </div>
