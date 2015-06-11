@@ -11,15 +11,26 @@
             jQuery('input').typeahead({source: sourceArray});
         });
     });
+
+    function disableDestinationEnableOrganizer() {
+        jQuery("#destination").prop('disabled', true);
+    }
+    function
 </script>
 <div>
     <div class="row in" id="newtrip" aria-expanded="true" aria-controls="loginCollapse">
         <div class="col-xs-12">
             <div class="well">
-                <form>
-                    <div id="the-basics">
-                        <label for="login_email" class="control-label">Дестинация:</label>
-                        <input class="typeahead form-control" type="text" placeholder="Град, Държава">
+                <form class="form-inline">
+                    <div class="row">
+                        <div class="form-group">
+                            <input class="typeahead form-control" type="text"
+                                   placeholder="Въведете дестинация: City, Country"
+                                   id="destination">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-block btn-info" onclick="disableDestinationEnableOrganizer()">Запази</button>
+                        </div>
                     </div>
                     <div class="row" style="height: 15pt;"></div>
                     <div class="row">
@@ -79,6 +90,9 @@
                     <div class="checkbox checkbox-success">
                         <input id="<?= $item; ?>" type="checkbox">
                         <label for="<?= $item; ?>"><?= $item; ?></label>
+                    </div>
+                    <div>
+
                     </div>
                     <?php
                 }
