@@ -11,7 +11,7 @@ function getForgottenPasswordForm() {
                     { forgotten_password_email : forgotten_password_email },
                     function (result) {
                         if (result == 'Success') {
-                            jQuery('#email_sent_info_message').show();
+                            jQuery('#email_sent_info_message').show('400');
                         } else {
                             jQuery('#email_sent_info_message').hide();
                         }

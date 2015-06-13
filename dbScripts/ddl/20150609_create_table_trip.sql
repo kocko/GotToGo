@@ -4,7 +4,7 @@ CREATE TABLE `trip` (
   `user_id` bigint(20) NOT NULL DEFAULT '0',
   `destination` char(35) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_id` (`id`)
+  UNIQUE KEY `unique_id` (`id`),
   CONSTRAINT `user_fk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4080 DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
 

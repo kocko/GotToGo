@@ -13,42 +13,65 @@
     });
 
     function disableDestinationEnableOrganizer() {
-        jQuery("#destination").prop('disabled', true);
+        jQuery("#destination").prop('readonly', true);
+        jQuery("#organizer").show();
     }
+//
+//    function validateDestination() {
+//        if (jQuery("#destination").val() == "") {
+//            jQuery("#destination").validate('validate');
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 </script>
 <div>
     <div class="row in" id="newtrip" aria-expanded="true" aria-controls="loginCollapse">
         <div class="col-xs-12">
             <div class="well">
-                <form class="form-inline">
+                <h1>Избор на пътуване</h1>
+                <div>
+                    ТекстТекстТекстТекстТекстТекстТекст
+                </div>
+                <br />
+                <form class="form-inline" action="create_new_trip_action.php" method="post">
                     <div class="row">
                         <div class="form-group">
-                            <input class="typeahead form-control" type="text"
+                            <input class="typeahead form-control" type="text" autocomplete="off"
                                    placeholder="Въведете дестинация: City, Country"
-                                   id="destination">
+                                   id="destination" name="destination" value="">
                         </div>
                         <div class="form-group">
-                            <button type="button" class="btn btn-block btn-info" onclick="disableDestinationEnableOrganizer()">Запази</button>
+                            <button type="button" class="btn btn-block btn-info"
+                                    onclick="disableDestinationEnableOrganizer()">Запази</button>
                         </div>
                     </div>
                     <div class="row" style="height: 15pt;"></div>
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <button type="button" class="btn btn-success btn-block" onclick="switchBetweenCollapsibleDivs('organizeBudgetDiv', 'organizeLuggageDiv')">Планиране на бюджет</button>
+                    <div id="organizer" style="display: none;">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-success btn-block" onclick="switchBetweenCollapsibleDivs('organizeBudgetDiv', 'organizeLuggageDiv')">Планиране на бюджет</button>
+                            </div>
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-success btn-block" onclick="switchBetweenCollapsibleDivs('organizeLuggageDiv', 'organizeBudgetDiv')">Организиране на багаж</button>
+                            </div>
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-success btn-block" disabled="true">Планиране на маршрут </button>
+                            </div>
                         </div>
-                        <div class="col-xs-4">
-                            <button type="button" class="btn btn-success btn-block" onclick="switchBetweenCollapsibleDivs('organizeLuggageDiv', 'organizeBudgetDiv')">Организиране на багаж</button>
+                        <div class="row" style="height: 15pt;"></div>
+                        <div class="row collapse" id="organizeBudgetDiv" aria-expanded="false" aria-controls="organizeBudgetCollapse">
+                            budget here
                         </div>
-                        <div class="col-xs-4">
-                            <button type="button" class="btn btn-success btn-block" disabled="true">Планиране на маршрут </button>
+                        <div class="row collapse" id="organizeLuggageDiv" aria-expanded="false">
+                            <?php organizeLuggage(); ?>
                         </div>
-                    </div>
-                    <div class="row" style="height: 15pt;"></div>
-                    <div class="row collapse" id="organizeBudgetDiv" aria-expanded="false" aria-controls="organizeBudgetCollapse">
-                        budget here
-                    </div>
-                    <div class="row collapse" id="organizeLuggageDiv" aria-expanded="false">
-                        <?php organizeLuggage(); ?>
+                        <div class="row" style="height: 15pt;"></div>
+                        <div class="row" id="createNewTripArea">
+                            <button type="submit" class="btn btn-danger btn-block"
+                                    id="new_trip_action" name="new_trip_action">Създай</button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -86,11 +109,8 @@
                 foreach ($items as $item) {
                     ?>
                     <div class="checkbox checkbox-success">
-                        <input id="<?= $item; ?>" type="checkbox">
+                        <input id="<?= $item; ?>" type="checkbox" name="selectedLuggageItems[<?= $category; ?>][]" value="<?= $item; ?>">
                         <label for="<?= $item; ?>"><?= $item; ?></label>
-                    </div>
-                    <div>
-
                     </div>
                     <?php
                 }
@@ -98,10 +118,15 @@
             </div>
         <?php
         }
+        ?>
+    </div>
+    <?php
     }
 
     function organizeLuggage() {
         getLuggageItemsNavigationTabs();
         getLuggageTabPanels();
     }
+
+
 

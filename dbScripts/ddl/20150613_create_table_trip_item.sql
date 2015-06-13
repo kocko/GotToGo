@@ -6,4 +6,4 @@ CREATE TABLE `trip_item`(
   `category` enum('Документи','Устройства','Облекло','Аксесоари','Козметични и гримове','За баня','Полезни','Занимателни','Допълнителни') NOT NULL,
   PRIMARY KEY (`ID`),
   CONSTRAINT `trip_fk_1` FOREIGN KEY (`trip_id`) REFERENCES `trip` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4080 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
