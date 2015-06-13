@@ -5,5 +5,5 @@ CREATE TABLE `trip_item`(
   `name` char(35) NOT NULL DEFAULT '-',
   `category` enum('Документи','Устройства','Облекло','Аксесоари','Козметични и гримове','За баня','Полезни','Занимателни','Допълнителни') NOT NULL,
   PRIMARY KEY (`ID`),
-  CONSTRAINT `trip_fk_1` FOREIGN KEY (`trip_id`) REFERENCES `trip` (`id`)
+  CONSTRAINT `trip_fk_1` FOREIGN KEY (`trip_id`) REFERENCES `trip` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

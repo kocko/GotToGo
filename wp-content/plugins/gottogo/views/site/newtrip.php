@@ -25,6 +25,28 @@
 //            return false;
 //        }
 //    }
+
+    jQuery(function(){
+        jQuery("#new_trip_action").click(function() {
+            var destination = jQuery('#destination').val();
+            var luggage_items = jQuery(":checkbox").serializeArray();
+            var result = [];
+            for (var i = 0; i < luggage_items.length; i++) {
+                result.push([luggage_items[i].name, luggage_items[i].value]);
+            }
+
+            jQuery.post("<?= get_site_url(); ?>/wp-content/plugins/gottogo/views/site/create_new_trip_action.php",
+                { destination : destination, selectedLuggageItems: result},
+                function (result) {
+                    if (result == true) {
+                        alert("OK")
+                    } else {
+                        alert("not ok");
+                    }
+                }
+            );
+        });
+    });
 </script>
 <div>
     <div class="row in" id="newtrip" aria-expanded="true" aria-controls="loginCollapse">
@@ -32,10 +54,10 @@
             <div class="well">
                 <h1>Избор на пътуване</h1>
                 <div>
-                    ТекстТекстТекстТекстТекстТекстТекст
+                    Тук ще има текст.
                 </div>
                 <br />
-                <form class="form-inline" action="create_new_trip_action.php" method="post">
+                <form class="form-inline" action="" method="post">
                     <div class="row">
                         <div class="form-group">
                             <input class="typeahead form-control" type="text" autocomplete="off"
@@ -69,8 +91,8 @@
                         </div>
                         <div class="row" style="height: 15pt;"></div>
                         <div class="row" id="createNewTripArea">
-                            <button type="submit" class="btn btn-danger btn-block"
-                                    id="new_trip_action" name="new_trip_action">Създай</button>
+                            <a type="submit" class="btn btn-danger btn-block"
+                                    id="new_trip_action" name="new_trip_action">Създай</a>
                         </div>
                     </div>
                 </form>
@@ -109,7 +131,7 @@
                 foreach ($items as $item) {
                     ?>
                     <div class="checkbox checkbox-success">
-                        <input id="<?= $item; ?>" type="checkbox" name="selectedLuggageItems[<?= $category; ?>][]" value="<?= $item; ?>">
+                        <input id="<?= $item; ?>" type="checkbox" name="<?= $category; ?>" value="<?= $item; ?>">
                         <label for="<?= $item; ?>"><?= $item; ?></label>
                     </div>
                     <?php
