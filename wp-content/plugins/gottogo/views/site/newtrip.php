@@ -39,9 +39,10 @@
                 { destination : destination, selectedLuggageItems: result},
                 function (result) {
                     if (result == true) {
-                        alert("OK")
+                        jQuery("#tripSuccessMessage").show(400);
+                        jQuery("#newTripDataForm").hide();
                     } else {
-                        alert("not ok");
+                        jQuery("#tripErrorMessage").show(400);
                     }
                 }
             );
@@ -57,7 +58,13 @@
                     Тук ще има текст.
                 </div>
                 <br />
-                <form class="form-inline" action="" method="post">
+                <div class="alert alert-info collapse alert-dismissible" id="tripSuccessMessage">
+                    Пътуването е успешно създадено! Може да го видите на страницата 'Моите пътувания'!
+                </div>
+                <div class="alert alert-info collapse alert-dismissible" id="tripErrorMessage">
+                    Възникна грешка! Моля, опитайте отново!
+                </div>
+                <form class="form-inline" action="" method="post" id="newTripDataForm">
                     <div class="row">
                         <div class="form-group">
                             <input class="typeahead form-control" type="text" autocomplete="off"
