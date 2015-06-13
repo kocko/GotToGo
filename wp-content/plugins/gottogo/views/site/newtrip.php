@@ -15,7 +15,6 @@
     function disableDestinationEnableOrganizer() {
         jQuery("#destination").prop('disabled', true);
     }
-    function
 </script>
 <div>
     <div class="row in" id="newtrip" aria-expanded="true" aria-controls="loginCollapse">
@@ -35,20 +34,20 @@
                     <div class="row" style="height: 15pt;"></div>
                     <div class="row">
                         <div class="col-xs-4">
-                            <button type="button" class="btn btn-success btn-block" onclick="switchBetweenCollapsibleDivs('organizeLuggageDiv', 'organizeBudgetDiv')">Планиране на бюджет</button>
+                            <button type="button" class="btn btn-success btn-block" onclick="switchBetweenCollapsibleDivs('organizeBudgetDiv', 'organizeLuggageDiv')">Планиране на бюджет</button>
                         </div>
                         <div class="col-xs-4">
-                            <button type="button" class="btn btn-success btn-block" onclick="switchBetweenCollapsibleDivs('organizeBudgetDiv', 'organizeLuggageDiv')">Организиране на багаж</button>
+                            <button type="button" class="btn btn-success btn-block" onclick="switchBetweenCollapsibleDivs('organizeLuggageDiv', 'organizeBudgetDiv')">Организиране на багаж</button>
                         </div>
                         <div class="col-xs-4">
                             <button type="button" class="btn btn-success btn-block" disabled="true">Планиране на маршрут </button>
                         </div>
                     </div>
                     <div class="row" style="height: 15pt;"></div>
-                    <div class="row collapse" id="organizeBudgetDiv" aria-expanded="true" aria-controls="organizeBudgetCollapse">
+                    <div class="row collapse" id="organizeBudgetDiv" aria-expanded="false" aria-controls="organizeBudgetCollapse">
                         budget here
                     </div>
-                    <div class="row collapse in" id="organizeLuggageDiv" aria-expanded="true">
+                    <div class="row collapse" id="organizeLuggageDiv" aria-expanded="false">
                         <?php organizeLuggage(); ?>
                     </div>
                 </form>
@@ -61,7 +60,6 @@
 <?php
     function getLuggageItemsNavigationTabs() {
         require_once '../utils/luggage_utils.php';
-
 ?>
     <ul class="nav nav-tabs" role="tablist">
     <?php

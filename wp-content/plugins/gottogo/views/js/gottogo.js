@@ -1,6 +1,6 @@
 function switchBetweenCollapsibleDivs(showId, hideId) {
-    jQuery('#' + showId).collapse('toggle');
-    jQuery('#' + hideId).collapse('toggle');
+    jQuery('#' + showId).collapse('show');
+    jQuery('#' + hideId).collapse('hide');
 }
 
 function validatePassword(first, second) {
