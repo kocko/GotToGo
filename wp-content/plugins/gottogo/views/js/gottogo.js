@@ -1,6 +1,6 @@
 function switchBetweenCollapsibleDivs(showId, hideId) {
-    jQuery('#' + showId).collapse('toggle');
-    jQuery('#' + hideId).collapse('toggle');
+    jQuery('#' + showId).collapse('show');
+    jQuery('#' + hideId).collapse('hide');
 }
 
 function validatePassword(first, second) {
@@ -17,7 +17,7 @@ function validatePassword(first, second) {
 function validateEmail(componentId, errorMessageContainerId, successResult) {
     var email = jQuery('#' + componentId).val();
     if (email) {
-        jQuery.post("wp-content/plugins/gottogo/views/utils/checkEmail.php", {register_email: email},
+        jQuery.post("wp-content/plugins/gottogo/views/utils/check_email.php", {register_email: email},
             function (result) {
                 if (result == successResult) {
                     jQuery('#' + errorMessageContainerId).show();

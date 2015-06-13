@@ -13,7 +13,6 @@
 </head>
 <body <?php body_class(); ?>>
 <script type="application/javascript" src="<?= get_site_url(); ?>/wp-includes/bootstrap/js/bootstrap.min.js"></script>
-<script data-require="jquery@*" data-semver="2.0.3" src="<?= get_site_url(); ?>/wp-includes/js/typeahead.js/jquery-2.0.3.min.js"></script>
 <script src="<?= get_site_url(); ?>/wp-includes/js/typeahead.js/bootstrap3-typeahead.js"></script>
 <script src="../js/gottogo.js"></script>
 

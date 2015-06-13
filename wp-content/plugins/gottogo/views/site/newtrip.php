@@ -11,31 +11,95 @@
             jQuery('input').typeahead({source: sourceArray});
         });
     });
+
+    function disableDestinationEnableOrganizer() {
+        jQuery("#destination").prop('readonly', true);
+        jQuery("#organizer").show();
+    }
+//
+//    function validateDestination() {
+//        if (jQuery("#destination").val() == "") {
+//            jQuery("#destination").validate('validate');
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+
+    jQuery(function(){
+        jQuery("#new_trip_action").click(function() {
+            var destination = jQuery('#destination').val();
+            var luggage_items = jQuery(":checkbox").serializeArray();
+            var result = [];
+            for (var i = 0; i < luggage_items.length; i++) {
+                result.push([luggage_items[i].name, luggage_items[i].value]);
+            }
+
+            jQuery.post("<?= get_site_url(); ?>/wp-content/plugins/gottogo/views/site/create_new_trip_action.php",
+                { destination : destination, selectedLuggageItems: result},
+                function (result) {
+                    if (result == true) {
+                        jQuery("#tripSuccessMessage").show(400);
+                        jQuery("#newTripDataForm").hide();
+                    } else {
+                        jQuery("#tripErrorMessage").show(400);
+                    }
+                }
+            );
+        });
+    });
 </script>
 <div>
     <div class="row in" id="newtrip" aria-expanded="true" aria-controls="loginCollapse">
         <div class="col-xs-12">
             <div class="well">
-                <form>
-                    <div id="the-basics">
-                        <label for="login_email" class="control-label">Дестинация:</label>
-                        <input class="typeahead form-control" type="text" placeholder="Град, Държава">
-                    </div>
+                <h1>Избор на пътуване</h1>
+                <div>
+                    Тук ще има текст.
+                </div>
+                <br />
+                <div class="alert alert-info collapse alert-dismissible" id="tripSuccessMessage">
+                    Пътуването е успешно създадено! Може да го видите на страницата 'Моите пътувания'!
+                </div>
+                <div class="alert alert-info collapse alert-dismissible" id="tripErrorMessage">
+                    Възникна грешка! Моля, опитайте отново!
+                </div>
+                <form class="form-inline" action="" method="post" id="newTripDataForm">
                     <div class="row">
-                        <div class="col-xs-4">
-                            <button type="button" class="btn btn-success btn-block" onclick="switchBetweenCollapsibleDivs('organizeLuggageDiv', 'organizeBudgetDiv')">Планиране на бюджет</button>
+                        <div class="form-group">
+                            <input class="typeahead form-control" type="text" autocomplete="off"
+                                   placeholder="Въведете дестинация: City, Country"
+                                   id="destination" name="destination" value="">
                         </div>
-                        <div class="col-xs-4">
-                            <button type="button" class="btn btn-success btn-block" onclick="switchBetweenCollapsibleDivs('organizeBudgetDiv', 'organizeLuggageDiv')">Организиране на багаж</button>
-                        </div>
-                        <div class="col-xs-4">
-                            <button type="button" class="btn btn-success btn-block" disabled="true">Планиране на маршрут </button>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-block btn-info"
+                                    onclick="disableDestinationEnableOrganizer()">Запази</button>
                         </div>
                     </div>
                     <div class="row" style="height: 15pt;"></div>
-                    <div class="row">
-                        <div id="organizeLuggageDiv" aria-expanded="true">
+                    <div id="organizer" style="display: none;">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-success btn-block" onclick="switchBetweenCollapsibleDivs('organizeBudgetDiv', 'organizeLuggageDiv')">Планиране на бюджет</button>
+                            </div>
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-success btn-block" onclick="switchBetweenCollapsibleDivs('organizeLuggageDiv', 'organizeBudgetDiv')">Организиране на багаж</button>
+                            </div>
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-success btn-block" disabled="true">Планиране на маршрут </button>
+                            </div>
+                        </div>
+                        <div class="row" style="height: 15pt;"></div>
+                        <div class="row collapse" id="organizeBudgetDiv" aria-expanded="false" aria-controls="organizeBudgetCollapse">
+                            budget here
+                        </div>
+                        <div class="row collapse" id="organizeLuggageDiv" aria-expanded="false">
                             <?php organizeLuggage(); ?>
+                        </div>
+                        <div class="row" style="height: 15pt;"></div>
+                        <div class="row" id="createNewTripArea">
+                            <a type="submit" class="btn btn-danger btn-block"
+                                    id="new_trip_action" name="new_trip_action">Създай</a>
                         </div>
                     </div>
                 </form>
@@ -48,7 +112,6 @@
 <?php
     function getLuggageItemsNavigationTabs() {
         require_once '../utils/luggage_utils.php';
-
 ?>
     <ul class="nav nav-tabs" role="tablist">
     <?php
@@ -75,7 +138,7 @@
                 foreach ($items as $item) {
                     ?>
                     <div class="checkbox checkbox-success">
-                        <input id="<?= $item; ?>" type="checkbox">
+                        <input id="<?= $item; ?>" type="checkbox" name="<?= $category; ?>" value="<?= $item; ?>">
                         <label for="<?= $item; ?>"><?= $item; ?></label>
                     </div>
                     <?php
@@ -84,10 +147,12 @@
             </div>
         <?php
         }
+        ?>
+    </div>
+    <?php
     }
 
     function organizeLuggage() {
         getLuggageItemsNavigationTabs();
         getLuggageTabPanels();
     }
-
