@@ -127,6 +127,3 @@
         getLuggageItemsNavigationTabs();
         getLuggageTabPanels();
     }
-
-
-

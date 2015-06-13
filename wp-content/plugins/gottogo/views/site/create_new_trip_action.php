@@ -48,20 +48,4 @@ function createNewTrip() {
     }
 }
 
-//function test() {
-//    if (isset($_POST['new_trip_action'])) {
-//
-//
-//            $items = $_POST['selectedLuggageItems'][$category];
-//            echo "Category: " . $category . "<br />";
-//
-//                foreach ($items as $item) {
-//                    echo $item;
-//                }
-//            }
-//        }
-//
-//    }
-//}
-
 createNewTrip();
