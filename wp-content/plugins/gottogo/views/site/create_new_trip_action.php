@@ -30,7 +30,6 @@ function createNewTrip() {
             $items_query .= "(" . $trip_id . ", '" . $item . "', '" . $category . "'),";
         }
 
-
         $items_query = rtrim($items_query, ',');
         $result = mysql_query($items_query, $GLOBALS['connection']);
 

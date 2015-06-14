@@ -16,8 +16,21 @@
                     function (result) {
                         if (result == 1) {
                             location.reload();
-                        } else {
+                        }
+                    }
+                );
+            }
+        });
+    }
 
+    function copyMyTrip(tripId) {
+        bootbox.confirm("Сигурни ли сте, че искате да копирате пътуването?", function(result) {
+            if (result) {
+                jQuery.post("<?= get_site_url(); ?>/wp-content/plugins/gottogo/views/site/copy_trip_action.php",
+                    { tripId: tripId },
+                    function (result) {
+                        if (result == 1) {
+                            location.reload();
                         }
                     }
                 );
@@ -73,7 +86,7 @@
                                 <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
                                 Печат
                             </button>
-                            <button type="button" class="btn btn-warning btn-xs" id="tripPreview" title="Копирай">
+                            <button type="button" class="btn btn-warning btn-xs" id="tripPreview" title="Копирай" onclick="copyMyTrip(<?= $trips[$i - 1]['id']; ?>)">
                                 <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
                                 Копиране
                             </button>
