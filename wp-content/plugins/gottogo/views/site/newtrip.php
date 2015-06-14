@@ -74,64 +74,64 @@
         });
     });
 </script>
-<div>
-    <div class="row in" id="newtrip" aria-expanded="true" aria-controls="loginCollapse">
-        <div class="col-xs-12">
-            <div class="well">
-                <h1>Избор на пътуване</h1>
-                <div>
-                    Тук ще има текст.
+<div class="row in" id="newtrip" aria-expanded="true" aria-controls="newTripCollapse">
+    <div class="col-xs-12">
+        <div class="well">
+            <h1>Избор на пътуване</h1>
+            <div>
+                Тук ще има текст.
+            </div>
+            <br />
+            <div class="alert alert-info collapse alert-dismissible" id="tripSuccessMessage">
+                Пътуването е създадено успешно! Може да го видите на страницата
+                <a href="mytrips.php" type="button" class="btn btn-success btn-sm">
+                    Моите пътувания
+                </a>
+            </div>
+            <div class="alert alert-info collapse alert-dismissible" id="tripErrorMessage">
+                Възникна грешка! Моля, опитайте отново!
+            </div>
+            <form class="form-inline" action="" method="post" id="newTripDataForm">
+                <div class="row">
+                    <div class="form-group">
+                        <input class="typeahead form-control" type="text" autocomplete="off"
+                               placeholder="Въведете дестинация: City, Country"
+                               id="destination" name="destination" value="">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-block btn-info"
+                                onclick="disableDestinationEnableOrganizer()">Запази</button>
+                    </div>
                 </div>
-                <br />
-                <div class="alert alert-info collapse alert-dismissible" id="tripSuccessMessage">
-                    Пътуването е успешно създадено! Може да го видите на страницата 'Моите пътувания'!
-                </div>
-                <div class="alert alert-info collapse alert-dismissible" id="tripErrorMessage">
-                    Възникна грешка! Моля, опитайте отново!
-                </div>
-                <form class="form-inline" action="" method="post" id="newTripDataForm">
+                <div class="row" style="height: 15pt;"></div>
+                <div id="organizer" style="display: none;">
                     <div class="row">
-                        <div class="form-group">
-                            <input class="typeahead form-control" type="text" autocomplete="off"
-                                   placeholder="Въведете дестинация: City, Country"
-                                   id="destination" name="destination" value="">
+                        <div class="col-xs-4">
+                            <button type="button" class="btn btn-success btn-block" onclick="switchBetweenCollapsibleDivs('organizeBudgetDiv', 'organizeLuggageDiv')">Планиране на бюджет</button>
                         </div>
-                        <div class="form-group">
-                            <button type="button" class="btn btn-block btn-info"
-                                    onclick="disableDestinationEnableOrganizer()">Запази</button>
+                        <div class="col-xs-4">
+                            <button type="button" class="btn btn-success btn-block" onclick="switchBetweenCollapsibleDivs('organizeLuggageDiv', 'organizeBudgetDiv')">Организиране на багаж</button>
+                        </div>
+                        <div class="col-xs-4">
+                            <button type="button" class="btn btn-success btn-block" disabled>Планиране на маршрут </button>
                         </div>
                     </div>
                     <div class="row" style="height: 15pt;"></div>
-                    <div id="organizer" style="display: none;">
-                        <div class="row">
-                            <div class="col-xs-4">
-                                <button type="button" class="btn btn-success btn-block" onclick="switchBetweenCollapsibleDivs('organizeBudgetDiv', 'organizeLuggageDiv')">Планиране на бюджет</button>
-                            </div>
-                            <div class="col-xs-4">
-                                <button type="button" class="btn btn-success btn-block" onclick="switchBetweenCollapsibleDivs('organizeLuggageDiv', 'organizeBudgetDiv')">Организиране на багаж</button>
-                            </div>
-                            <div class="col-xs-4">
-                                <button type="button" class="btn btn-success btn-block" disabled>Планиране на маршрут </button>
-                            </div>
-                        </div>
-                        <div class="row" style="height: 15pt;"></div>
-                        <div class="row collapse" id="organizeBudgetDiv" aria-expanded="false" aria-controls="organizeBudgetCollapse">
-                            budget here
-                        </div>
-                        <div class="row collapse" id="organizeLuggageDiv" aria-expanded="false">
-                            <?php organizeLuggage(); ?>
-                        </div>
-                        <div class="row" style="height: 15pt;"></div>
-                        <div class="row" id="createNewTripArea">
-                            <a type="submit" class="btn btn-danger btn-block"
-                                    id="new_trip_action" name="new_trip_action">Създай</a>
-                        </div>
+                    <div class="row collapse" id="organizeBudgetDiv" aria-expanded="false" aria-controls="organizeBudgetCollapse">
+                        budget here
                     </div>
-                </form>
-            </div>
+                    <div class="row collapse" id="organizeLuggageDiv" aria-expanded="false">
+                        <?php organizeLuggage(); ?>
+                    </div>
+                    <div class="row" style="height: 15pt;"></div>
+                    <div class="row" id="createNewTripArea">
+                        <a type="submit" class="btn btn-danger btn-block"
+                                id="new_trip_action" name="new_trip_action">Създай</a>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-
 </div>
 
 <?php
@@ -180,7 +180,6 @@
         <?php
         }
         ?>
-    </div>
     <?php
     }
 

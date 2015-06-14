@@ -42,8 +42,8 @@
         <nav class="home-navigation top-nav">
             <ul>
                 <li class="onetone-menuitem"><a id="onetone-home" href="#home"><span>Начало</span></a></li>
-                <li class="onetone-menuitem"><a id="onetone-about-this-site" href="#about-this-site"><span>Моите пътувания</span></a></li>
                 <li class="onetone-menuitem"><a id="onetone-new-trip" href="newtrip.php"><span>Ново пътуване</span></a></li>
+                <li class="onetone-menuitem"><a id="onetone-about-this-site" href="mytrips.php"><span>Моите пътувания</span></a></li>
                 <li class="onetone-menuitem"><a id="onetone-about-this-site" href="#about-this-site"><span>Профил</span></a></li>
                 <li class="onetone-menuitem"><a id="onetone-about-this-site" href="logout.php"><span>Изход</span></a></li>
             </ul>
