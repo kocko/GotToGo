@@ -6,5 +6,4 @@ CREATE TABLE `trip` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_id` (`id`),
   CONSTRAINT `user_fk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
