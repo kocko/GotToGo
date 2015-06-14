@@ -2,8 +2,6 @@
 
 session_start();
 
-require_once '../database.php';
-
 require_once '../../../../../wp-load.php';
 
 require_once '../utils/trip_utils.php';
