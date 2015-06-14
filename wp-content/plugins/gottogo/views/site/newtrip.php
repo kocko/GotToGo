@@ -16,23 +16,48 @@
         jQuery("#destination").prop('readonly', true);
         jQuery("#organizer").show();
     }
-//
-//    function validateDestination() {
-//        if (jQuery("#destination").val() == "") {
-//            jQuery("#destination").validate('validate');
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
+
+    function addLuggageItem(category) {
+        var addMoreLuggageItemsDiv = jQuery("#addMoreLuggageItems_" + category);
+        jQuery(addMoreLuggageItemsDiv).append(
+            '<div>' +
+            '   <input class="form-control" type="text" name="' + category + '">' +
+            '   <button type="button" class="btn btn-danger btn-xs id="removeLuggageItemsButton_' + category + '" title="Премахни" onclick="removeLuggageItem(this)">' +
+            '       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>' +
+            '   </button><br />' +
+            '</div>'
+        );
+    }
+
+    function removeLuggageItem(component) {
+        jQuery(component).parent('div').remove();
+    }
+
+    function validateDestination() {
+        //todo
+        if (jQuery("#destination").val() == "") {
+            jQuery("#destination").validate('validate');
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     jQuery(function(){
         jQuery("#new_trip_action").click(function() {
             var destination = jQuery('#destination').val();
             var luggage_items = jQuery(":checkbox").serializeArray();
+
             var result = [];
             for (var i = 0; i < luggage_items.length; i++) {
                 result.push([luggage_items[i].name, luggage_items[i].value]);
+            }
+
+            var additional_items = jQuery(":text");
+            for (var i = 0; i < additional_items.length; i++) {
+                if (additional_items[i].name != 'destination') {
+                    result.push([additional_items[i].name, additional_items[i].value]);
+                }
             }
 
             jQuery.post("<?= get_site_url(); ?>/wp-content/plugins/gottogo/views/site/create_new_trip_action.php",
@@ -86,7 +111,7 @@
                                 <button type="button" class="btn btn-success btn-block" onclick="switchBetweenCollapsibleDivs('organizeLuggageDiv', 'organizeBudgetDiv')">Организиране на багаж</button>
                             </div>
                             <div class="col-xs-4">
-                                <button type="button" class="btn btn-success btn-block" disabled="true">Планиране на маршрут </button>
+                                <button type="button" class="btn btn-success btn-block" disabled>Планиране на маршрут </button>
                             </div>
                         </div>
                         <div class="row" style="height: 15pt;"></div>
@@ -144,6 +169,13 @@
                     <?php
                 }
             ?>
+                <div id="addMoreLuggageItems_<?= $category; ?>">
+
+                </div>
+                <button type="button" class="btn btn-info btn-xs" id="addMoreLuggageItemsButton_<?= $category ;?>"
+                        title="Добави" onclick="addLuggageItem('<?= $category; ?>')">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
             </div>
         <?php
         }
