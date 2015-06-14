@@ -14,6 +14,7 @@
 <body <?php body_class(); ?>>
 <script type="application/javascript" src="<?= get_site_url(); ?>/wp-includes/bootstrap/js/bootstrap.min.js"></script>
 <script src="<?= get_site_url(); ?>/wp-includes/js/typeahead.js/bootstrap3-typeahead.js"></script>
+<script src="<?= get_site_url(); ?>/wp-includes/bootboxjs/bootbox.min.js"></script>
 <script src="../js/gottogo.js"></script>
 
 <?php if (is_home()) {
