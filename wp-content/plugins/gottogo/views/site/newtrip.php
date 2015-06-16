@@ -169,11 +169,11 @@
                     <?php
                 }
             ?>
-                <div id="addMoreLuggageItems_<?= $category; ?>">
+                <div id="addMoreLuggageItems_<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>">
 
                 </div>
-                <button type="button" class="btn btn-info btn-xs" id="addMoreLuggageItemsButton_<?= $category ;?>"
-                        title="Добави" onclick="addLuggageItem('<?= $category; ?>')">
+                <button type="button" class="btn btn-info btn-xs" id="addMoreLuggageItemsButton_<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>"
+                        title="Добави" onclick="addLuggageItem('<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>')">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </button>
             </div>
