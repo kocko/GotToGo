@@ -42,8 +42,11 @@
         jQuery("#budgetOrganizer").show();
     }
 
-    function validateNightsAndPeopleCount() {
-
+    function validateBudgetCost(obj) {
+        if (!obj.checkValidity()) {
+            obj.focus();
+            //todo add custom validity
+        }
     }
 
     function addLuggageItem(category) {
@@ -51,14 +54,27 @@
         jQuery(addMoreLuggageItemsDiv).append(
             '<div>' +
             '   <input class="form-control" type="text" name="' + category + '">' +
-            '   <button type="button" class="btn btn-danger btn-xs id="removeLuggageItemsButton_' + category + '" title="Премахни" onclick="removeLuggageItem(this)">' +
+            '   <button type="button" class="btn btn-danger btn-xs id="removeLuggageItemsButton_' + category + '" title="Премахни" onclick="removePlanItem(this)">' +
             '       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>' +
             '   </button><br />' +
             '</div>'
         );
     }
 
-    function removeLuggageItem(component) {
+    function addBudgetItem(category) {
+        var addMoreLuggageItemsDiv = jQuery("#addMoreBudgetItems_" + category);
+        jQuery(addMoreLuggageItemsDiv).append(
+            '<div>' +
+            '   <input class="form-control" type="text" name="' + category + '" placeholder="Заглавие">' +
+            '   <input class="form-control" type="text" name="budget_' + category + '" placeholder="Стойност" pattern="^\d+([.,]\d+)?$">' +
+            '   <button type="button" class="btn btn-danger btn-xs id="removeBudgetItemsButton_' + category + '" title="Премахни" onclick="removePlanItem(this)">' +
+            '       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>' +
+            '   </button><br />' +
+            '</div>'
+        );
+    }
+
+    function removePlanItem(component) {
         jQuery(component).parent('div').remove();
     }
 
@@ -154,6 +170,7 @@
                     </div>
                     <div class="row" style="height: 15pt;"></div>
                 </div>
+                <div class="row" style="height: 15pt;"></div>
                 <div class="row" id="createNewTripArea">
                     <a type="submit" class="btn btn-danger btn-block"
                        id="new_trip_action" name="new_trip_action">Създай</a>
@@ -198,9 +215,7 @@
                     <?php
                 }
             ?>
-                <div id="addMoreLuggageItems_<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>">
-
-                </div>
+                <div id="addMoreLuggageItems_<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>"></div>
                 <button type="button" class="btn btn-info btn-xs" id="addMoreLuggageItemsButton_<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>"
                         title="Добави" onclick="addLuggageItem('<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>')">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -209,6 +224,7 @@
         <?php
         }
         ?>
+    </div>
     <?php
     }
 
@@ -250,7 +266,36 @@
     }
 
     function getBudgetTabPanels() {
-
+    ?>
+        <div class="tab-content">
+            <?php
+            $categories = getBudgetCategories();
+            foreach ($categories as $category) {
+                ?>
+                <div role="tabpanel" class="tab-pane" id="<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>">
+                    <?php
+                    $items = getBudgetCostsPerCategory($category);
+                    foreach ($items as $item) {
+                        ?>
+                        <label for="<?= $item; ?>"><?= $item; ?></label>
+                        <input id="<?= $item; ?>" name="budget_<?= $category; ?>"
+                               class="form-control" pattern="^\d+([.,]\d+)?$"
+                               onblur="validateBudgetCost(this)">
+                        <br />
+                    <?php
+                    }
+                    ?>
+                    <div id="addMoreBudgetItems_<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>"></div>
+                    <button type="button" class="btn btn-info btn-xs" id="addMoreLuggageItemsButton_<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>"
+                            title="Добави" onclick="addBudgetItem('<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>')">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                </div>
+            <?php
+            }
+            ?>
+        </div>
+    <?php
     }
 
     function organizeLuggage() {
