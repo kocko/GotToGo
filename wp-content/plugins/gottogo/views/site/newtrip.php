@@ -118,7 +118,7 @@
                     </div>
                     <div class="row" style="height: 15pt;"></div>
                     <div class="row collapse" id="organizeBudgetDiv" aria-expanded="false" aria-controls="organizeBudgetCollapse">
-                        budget here
+                        <?php organizeBudget(); ?>
                     </div>
                     <div class="row collapse" id="organizeLuggageDiv" aria-expanded="false">
                         <?php organizeLuggage(); ?>
@@ -183,7 +183,25 @@
     <?php
     }
 
+    function getBudgetNavigationTabs() {
+        require_once '../utils/budget_utils.php';
+    ?>
+        <ul class="nav nav-tabs" role="tablist">
+            <?php
+            $categories = getBudgetCategories();
+            foreach ($categories as $category) {
+                ?><li role="presentation"><a href="#<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>" aria-controls="home" role="tab" data-toggle="tab"><?= $category; ?></a></li><?php
+            }
+            ?>
+        </ul>
+    <?php
+    }
+
     function organizeLuggage() {
         getLuggageItemsNavigationTabs();
         getLuggageTabPanels();
+    }
+
+    function organizeBudget() {
+        getBudgetNavigationTabs();
     }
