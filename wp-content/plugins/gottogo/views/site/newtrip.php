@@ -124,10 +124,10 @@
                         <?php organizeLuggage(); ?>
                     </div>
                     <div class="row" style="height: 15pt;"></div>
-                    <div class="row" id="createNewTripArea">
-                        <a type="submit" class="btn btn-danger btn-block"
-                                id="new_trip_action" name="new_trip_action">Създай</a>
-                    </div>
+                </div>
+                <div class="row" id="createNewTripArea">
+                    <a type="submit" class="btn btn-danger btn-block"
+                       id="new_trip_action" name="new_trip_action">Създай</a>
                 </div>
             </form>
         </div>
