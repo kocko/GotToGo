@@ -17,6 +17,35 @@
         jQuery("#organizer").show();
     }
 
+    function disableCountsEnableBudget() {
+        jQuery("#nightsCountErrorMessage").hide();
+        jQuery("#touristsCountErrorMessage").hide();
+        var nightsCount = jQuery("#nightsCount").val();
+        var touristsCount = jQuery("#touristsCount").val();
+        var error = false;
+        if (nightsCount == '') {
+            jQuery("#nightsCountErrorMessage").show();
+            error = true;
+        }
+        if (touristsCount == '') {
+            jQuery("#touristsCountErrorMessage").show();
+            error = true
+        }
+        if (error) {
+            return;
+        }
+        jQuery("#nightsCountErrorMessage").hide();
+        jQuery("#touristsCountErrorMessage").hide();
+        jQuery("#budgetCountSave").prop('disabled', false);
+        jQuery("#touristsCount").prop('readonly', true);
+        jQuery("#nightsCount").prop('readonly', true);
+        jQuery("#budgetOrganizer").show();
+    }
+
+    function validateNightsAndPeopleCount() {
+
+    }
+
     function addLuggageItem(category) {
         var addMoreLuggageItemsDiv = jQuery("#addMoreLuggageItems_" + category);
         jQuery(addMoreLuggageItemsDiv).append(
@@ -186,14 +215,37 @@
     function getBudgetNavigationTabs() {
         require_once '../utils/budget_utils.php';
     ?>
-        <ul class="nav nav-tabs" role="tablist">
-            <?php
-            $categories = getBudgetCategories();
-            foreach ($categories as $category) {
-                ?><li role="presentation"><a href="#<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>" aria-controls="home" role="tab" data-toggle="tab"><?= $category; ?></a></li><?php
-            }
-            ?>
-        </ul>
+        <div id="budgetOrganizer" style="display:none;">
+            <ul class="nav nav-tabs" role="tablist">
+                <?php
+                $categories = getBudgetCategories();
+                foreach ($categories as $category) {
+                    ?><li role="presentation"><a href="#<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>" aria-controls="home" role="tab" data-toggle="tab"><?= $category; ?></a></li><?php
+                }
+                ?>
+            </ul>
+        </div>
+    <?php
+    }
+
+    function getNightsStayingAndPeopleTravellingDiv() {
+    ?>
+
+        <input class="form-control" type="text" autocomplete="off"
+               placeholder="Брой пътници" id="touristsCount" name="touristsCount" value="">
+        <input class="form-control" type="text" autocomplete="off"
+               placeholder="Брой нощувки" id="nightsCount" name="nightsCount" value="">
+        <div class="form-group">
+            <button type="button" class="btn btn-block btn-info" id="budgetCountSave" onclick="disableCountsEnableBudget()">Запази</button>
+        </div>
+        <div class="row" style="height: 15pt;"></div>
+        <div class="alert alert-info collapse alert-dismissible" id="touristsCountErrorMessage">
+            Моля, въведете стойност за 'Брой пътници'!
+        </div>
+        <div class="alert alert-info collapse alert-dismissible" id="nightsCountErrorMessage">
+            Моля, въведете стойност за 'Брой нощувки'!
+        </div>
+        <div class="row" style="height: 15pt;"></div>
     <?php
     }
 
@@ -203,5 +255,6 @@
     }
 
     function organizeBudget() {
+        getNightsStayingAndPeopleTravellingDiv();
         getBudgetNavigationTabs();
     }
