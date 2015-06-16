@@ -25,7 +25,7 @@ INSERT INTO `budget_planning` VALUES (17, 'Заведения', '1', 'Хране
 INSERT INTO `budget_planning` VALUES (18, 'Нощен живот', '1', 'Хранения');
 
 -- Дейности / Забележителности
-INSERT INTO `budget_planning` VALUES (19, 'Пазар', '1', 'Дейности / Забележителности');
-INSERT INTO `budget_planning` VALUES (20, 'Подаръци / Сувенири', '1', 'Дейности / Забележителности');
-INSERT INTO `budget_planning` VALUES (21, 'Туристическа обиколка', '0', 'Дейности / Забележителности');
-INSERT INTO `budget_planning` VALUES (22, 'Вход за атракции', '0', 'Дейности / Забележителности');
+INSERT INTO `budget_planning` VALUES (19, 'Пазар', '1', 'Дейности и Забележителности');
+INSERT INTO `budget_planning` VALUES (20, 'Подаръци / Сувенири', '1', 'Дейности и Забележителности');
+INSERT INTO `budget_planning` VALUES (21, 'Туристическа обиколка', '0', 'Дейности и Забележителности');
+INSERT INTO `budget_planning` VALUES (22, 'Вход за атракции', '0', 'Дейности и Забележителности');
