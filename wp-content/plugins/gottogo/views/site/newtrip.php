@@ -231,22 +231,26 @@
     function getNightsStayingAndPeopleTravellingDiv() {
     ?>
 
-        <input class="form-control" type="text" autocomplete="off"
-               placeholder="Брой пътници" id="touristsCount" name="touristsCount" value="">
-        <input class="form-control" type="text" autocomplete="off"
-               placeholder="Брой нощувки" id="nightsCount" name="nightsCount" value="">
+        <input class="form-control" autocomplete="off" type="number"
+               placeholder="Брой пътници" id="touristsCount" name="touristsCount" min="1" step="1">
+        <input class="form-control" autocomplete="off" type="number"
+               placeholder="Брой нощувки" id="nightsCount" name="nightsCount" min="1" step="1">
         <div class="form-group">
             <button type="button" class="btn btn-block btn-info" id="budgetCountSave" onclick="disableCountsEnableBudget()">Запази</button>
         </div>
         <div class="row" style="height: 15pt;"></div>
         <div class="alert alert-info collapse alert-dismissible" id="touristsCountErrorMessage">
-            Моля, въведете стойност за 'Брой пътници'!
+            Моля, въведете положителна числова стойност за 'Брой пътници'!
         </div>
         <div class="alert alert-info collapse alert-dismissible" id="nightsCountErrorMessage">
-            Моля, въведете стойност за 'Брой нощувки'!
+            Моля, въведете положителна числова стойност за 'Брой нощувки'!
         </div>
         <div class="row" style="height: 15pt;"></div>
     <?php
+    }
+
+    function getBudgetTabPanels() {
+
     }
 
     function organizeLuggage() {
@@ -257,4 +261,5 @@
     function organizeBudget() {
         getNightsStayingAndPeopleTravellingDiv();
         getBudgetNavigationTabs();
+        getBudgetTabPanels();
     }
