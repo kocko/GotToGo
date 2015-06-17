@@ -50,7 +50,7 @@
                 <?php
                 if (isset($_SESSION['user']) && strcmp($_SESSION['user']['fullname'], 'Admin') == 0) {
                 ?>
-                    <li class="onetone-menuitem"><a id="onetone-about-this-site" href="#about-this-site"><span>Потребители</span></a></li>
+                    <li class="onetone-menuitem"><a id="onetone-about-this-site" href="users.php"><span>Потребители</span></a></li>
                 <?php
                 }
                 ?>
