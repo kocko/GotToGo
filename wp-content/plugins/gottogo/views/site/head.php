@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require_once("../../../../../wp-load.php");
 ?>
 <!DOCTYPE html>
@@ -46,6 +47,13 @@
                 <li class="onetone-menuitem"><a id="onetone-new-trip" href="newtrip.php"><span>Ново пътуване</span></a></li>
                 <li class="onetone-menuitem"><a id="onetone-about-this-site" href="mytrips.php"><span>Моите пътувания</span></a></li>
                 <li class="onetone-menuitem"><a id="onetone-about-this-site" href="#about-this-site"><span>Профил</span></a></li>
+                <?php
+                if (isset($_SESSION['user']) && strcmp($_SESSION['user']['fullname'], 'Admin') == 0) {
+                ?>
+                    <li class="onetone-menuitem"><a id="onetone-about-this-site" href="#about-this-site"><span>Потребители</span></a></li>
+                <?php
+                }
+                ?>
                 <li class="onetone-menuitem"><a id="onetone-about-this-site" href="logout.php"><span>Изход</span></a></li>
             </ul>
         </nav>
