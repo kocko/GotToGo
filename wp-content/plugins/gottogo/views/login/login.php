@@ -27,14 +27,13 @@ function getLoginForm() {
             </div>
         </div>
         <div class="col-xs-12 col-md-6">
-            <p class="lead">Регистрирайте се <span class="text-success">БЕЗПЛАТНО</span></p>
+            <p class="lead">Регистрацията е <span class="text-success">БЕЗПЛАТНА</span></p>
             <ul class="list-unstyled" style="line-height: 2">
-                <li><span class="fa fa-check text-success"></span> Планирайте бюджета си</li>
-                <li><span class="fa fa-check text-success"></span> Организирайте багажа си</li>
-                <li><span class="fa fa-check text-success"></span> Разпечатайте план в удобен вид</li>
-                <li><span class="fa fa-check text-success"></span> Отразете натрупания опит от предишно пътуване</li>
-                <li><span class="fa fa-check text-success"></span> Очаквайте скоро планиране на маршрут</li>
-                <li><a href="#about-this-site">Read more</a></li>
+                <li><span class="fa fa-check text-success"></span> Планиране на бюджет</li>
+                <li><span class="fa fa-check text-success"></span> Вграден валутен калкулатор</li>
+                <li><span class="fa fa-check text-success"></span> Организиране на багаж</li>
+                <li><span class="fa fa-check text-success"></span> Разпечатване на създаден план</li>
+                <li><span class="fa fa-check text-success"></span> Отразяване на натрупан опит след пътуване</li>
             </ul>
             <p>
                 <button class="btn btn-info btn-block" id="registerBtn"

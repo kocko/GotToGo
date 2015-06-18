@@ -8,7 +8,7 @@ function getAllRegisteredUsers() {
     $result = mysql_query("SELECT * FROM users WHERE role = 'user'");
     $rows = array();
     while($r = mysql_fetch_assoc($result)) {
-        $rows[] = array('id' => $r['id'], 'email' => $r['email'], 'fullname' => $r['fullname']);
+        $rows[] = array('id' => $r['id'], 'email' => $r['email'], 'fullname' => $r['fullname'], 'role' => $r['role']);
     }
     return $rows;
 }

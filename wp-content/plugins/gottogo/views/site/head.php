@@ -44,11 +44,17 @@
         <nav class="home-navigation top-nav">
             <ul>
                 <li class="onetone-menuitem"><a id="onetone-home" href="#home"><span>Начало</span></a></li>
+                <?php
+                if (isset($_SESSION['user']) && strcmp($_SESSION['user']['role'], 'user') == 0) {
+                ?>
                 <li class="onetone-menuitem"><a id="onetone-new-trip" href="newtrip.php"><span>Ново пътуване</span></a></li>
                 <li class="onetone-menuitem"><a id="onetone-about-this-site" href="mytrips.php"><span>Моите пътувания</span></a></li>
+                <?php
+                }
+                ?>
                 <li class="onetone-menuitem"><a id="onetone-about-this-site" href="#about-this-site"><span>Профил</span></a></li>
                 <?php
-                if (isset($_SESSION['user']) && strcmp($_SESSION['user']['fullname'], 'Admin') == 0) {
+                if (isset($_SESSION['user']) && strcmp($_SESSION['user']['role'], 'admin') == 0) {
                 ?>
                     <li class="onetone-menuitem"><a id="onetone-about-this-site" href="users.php"><span>Потребители</span></a></li>
                 <?php
