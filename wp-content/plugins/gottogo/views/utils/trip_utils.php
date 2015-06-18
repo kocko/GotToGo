@@ -1,6 +1,6 @@
 <?php
 
-include_once '../site/head.php';
+//include_once '../site/head.php';
 
 function getTripsForCurrentUser($userId) {
     $result = mysql_query("SELECT id as tripId, destination as destination FROM trip WHERE user_id = ". $userId);
@@ -45,7 +45,6 @@ function makeTripItemsCopy($old_trip_id, $new_trip_id) {
             $insert_query .= "(" . $new_trip_id . ", '" . $item['name'] . "', '" . $item['category'] . "'),";
         }
         $insert_query = rtrim($insert_query, ',');
-        echo $insert_query;
         $result = mysql_query($insert_query, $GLOBALS['connection']);
         if (!$result) {
             die ("error in database connection");
