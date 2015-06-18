@@ -52,7 +52,7 @@
                 <?php
                 }
                 ?>
-                <li class="onetone-menuitem"><a id="onetone-about-this-site" href="#about-this-site"><span>Профил</span></a></li>
+                <li class="onetone-menuitem"><a id="onetone-about-this-site" href="profile.php"><span>Профил</span></a></li>
                 <?php
                 if (isset($_SESSION['user']) && strcmp($_SESSION['user']['role'], 'admin') == 0) {
                 ?>
