@@ -28,7 +28,7 @@
                 jQuery.post("<?= get_site_url(); ?>/wp-content/plugins/gottogo/views/site/copy_trip_action.php",
                     { tripId: tripId },
                     function (result) {
-                        if (result == 1) {
+                            if (result == 1) {
                             location.reload();
                         }
                     }
