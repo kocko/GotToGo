@@ -21,7 +21,7 @@ function getForgottenPasswordForm() {
         });
     </script>
 
-    <div class="row collapse" id="forgottenPassword">
+    <div class="row collapse" id="forgottenPassword" aria-expanded="true" aria-controls="forgottenPasswordCollapse">
         <div class="row">
             <div class="col-xs-12 col-md-6">
                 <div class="well">
@@ -47,7 +47,7 @@ function getForgottenPasswordForm() {
                 </div>
                 Вече сте получили новата си парола?
                 <button class="btn btn-info btn-block" id="register_action"
-                        name="register_action" onclick="switchBetweenCollapsibleDivs('forgottenPassword', 'signin')">
+                        name="register_action" onclick="switchBetweenCollapsibleDivs('signin', 'forgottenPassword')">
                     Вход в системата
                 </button>
             </div>
