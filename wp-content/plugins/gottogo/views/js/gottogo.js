@@ -14,11 +14,12 @@ function validatePassword(first, second) {
     }
 }
 
-function validateEmail(componentId, errorMessageContainerId, successResult) {
+function validateEmail(componentId, errorMessageContainerId, successResult, disableButtonFunction, formButtonId) {
     var email = jQuery('#' + componentId).val();
     if (email) {
         jQuery.post("wp-content/plugins/gottogo/views/utils/check_email.php", {register_email: email},
             function (result) {
+                disableButtonFunction(result, formButtonId);
                 if (result == successResult) {
                     jQuery('#' + errorMessageContainerId).show();
                 } else {
