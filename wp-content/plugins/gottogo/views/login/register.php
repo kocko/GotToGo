@@ -2,6 +2,9 @@
 
 function getRegisterForm() {
 ?>
+    <script>
+
+    </script>
     <div class="row collapse" id="register" aria-expanded="false" aria-controls="registerCollapse">
         <div class="col-xs-12 col-md-6">
             <div class="well">
@@ -9,14 +12,14 @@ function getRegisterForm() {
                     <div class="form-group">
                         <label for="register_fullname" class="control-label">Вашето име</label>
                         <input type="text" class="form-control" id="register_fullname" name="register_fullname"
-                               value="" placeholder="Peter Stevens" required>
+                               value="" placeholder="Peter Stevens" required autocomplete="off">
                         <span class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label for="register_email" class="control-label">Електронна поща</label>
                         <input type="email" class="form-control" id="register_email" name="register_email"
-                               value="" placeholder="example@gmail.com"
-                               required onblur="validateEmail('register_email', 'register_email_taken_alert', 1)">
+                               value="" placeholder="example@gmail.com" autocomplete="off"
+                               required onblur="validateEmail('register_email', 'register_email_taken_alert', 1, function (result, formButtonId) { jQuery('#' + formButtonId).prop('disabled', result == 1); }, 'register_action')">
                         <span class="help-block"></span>
                     </div>
                     <div class="alert alert-danger alert-dismissable collapse" role="alert" id="register_email_taken_alert">
