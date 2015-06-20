@@ -29,6 +29,11 @@ if ($_SESSION['user']) {
     <div class="row" id="editProfile" aria-expanded="false" aria-controls="editProfileCollapse">
         <div class="col-xs-12 col-md-6">
             <div class="well">
+                <div>
+                    <h1>Личен профил</h1>
+                    Това е страницата с личният Ви профил. В нея може да намерите данните, които сте въвели при регистрация и при нужда да ги редактирате.
+                </div>
+                </br>
                 <form action="" method="post" id="edit_form" enctype="application/x-www-form-urlencoded">
                     <div class="form-group">
                         <label for="edit_fullname" class="control-label">Вашето име</label>
