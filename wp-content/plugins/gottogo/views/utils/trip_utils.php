@@ -1,7 +1,5 @@
 <?php
 
-//include_once '../site/head.php';
-
 function getTripsForCurrentUser($userId) {
     $result = mysql_query("SELECT id as tripId, destination as destination FROM trip WHERE user_id = ". $userId);
     $rows = array();
@@ -14,6 +12,7 @@ function getTripsForCurrentUser($userId) {
 function copyTrip($trip_id) {
     $newTripId = makeTripCopy($trip_id);
     makeTripItemsCopy($trip_id, $newTripId);
+    makeBudgetItemsCopy($trip_id, $newTripId);
 }
 
 function makeTripCopy($trip_id) {
@@ -52,3 +51,25 @@ function makeTripItemsCopy($old_trip_id, $new_trip_id) {
     }
 }
 
+function makeBudgetItemsCopy($old_trip_id, $new_trip_id) {
+    $items_query = sprintf("SELECT name as name, category as category, cost as cost, shared as shared FROM trip_budget where trip_id = " . $old_trip_id);
+    $result = mysql_query($items_query, $GLOBALS['connection']);
+    $rows = array();
+    while($r = mysql_fetch_assoc($result)) {
+        $rows[] = array('name' => $r['name'],
+                        'category' => $r['category'],
+                        'cost' => $r['cost'],
+                        'shared' => $r['shared']);
+    }
+    if ($rows) {
+        $insert_query = "INSERT INTO trip_budget (trip_id, name, category, cost, shared) values ";
+        foreach ($rows as $item) {
+            $insert_query .= "(" . $new_trip_id . ", '" . $item['name'] . "', '" . $item['category'] . "', '" . $item['cost'] . "', '" . $item['shared'] . "'),";
+        }
+        $insert_query = rtrim($insert_query, ',');
+        $result = mysql_query($insert_query, $GLOBALS['connection']);
+        if (!$result) {
+            die ("error in database connection");
+        }
+    }
+}
