@@ -8,5 +8,5 @@ CREATE TABLE `trip_budget` (
   `shared` enum ('0', '1') NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_id` (`id`),
-  CONSTRAINT `trip_fk_2` FOREIGN KEY (`trip_id`) REFERENCES `trip` (`id`)
+  CONSTRAINT `trip_fk_2` FOREIGN KEY (`trip_id`) REFERENCES `trip` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

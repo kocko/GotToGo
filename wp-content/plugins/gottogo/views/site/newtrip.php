@@ -29,7 +29,7 @@
         }
         if (touristsCount == '') {
             jQuery("#touristsCountErrorMessage").show();
-            error = true
+            error = true;
         }
         if (error) {
             return;
@@ -52,7 +52,7 @@
     function addLuggageItem(category) {
         var addMoreLuggageItemsDiv = jQuery("#addMoreLuggageItems_" + category);
         jQuery(addMoreLuggageItemsDiv).append(
-            '<div>' +
+            '<div id="addItemGroup">' +
             '   <input class="form-control" type="text" name="' + category + '">' +
             '   <button type="button" class="btn btn-danger btn-xs id="removeLuggageItemsButton_' + category + '" title="Премахни" onclick="removePlanItem(this)">' +
             '       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>' +
@@ -61,12 +61,13 @@
         );
     }
 
-    function addBudgetItem(category) {
-        var addMoreLuggageItemsDiv = jQuery("#addMoreBudgetItems_" + category);
-        jQuery(addMoreLuggageItemsDiv).append(
-            '<div>' +
-            '   <input class="form-control" type="text" name="' + category + '" placeholder="Заглавие">' +
-            '   <input class="form-control" type="text" name="budget_' + category + '" placeholder="Стойност" pattern="^\d+([.,]\d+)?$">' +
+    function addBudgetItem(category, categoryReal) {
+        var addMoreBudgetItemsDiv = jQuery("#addMoreBudgetItems_" + category);
+        jQuery(addMoreBudgetItemsDiv).append(
+            '<div id="addBdgGroup">' +
+            '   <input class="form-control" type="text" name="addBdgTitle_' + category + '" placeholder="Заглавие" id="' + categoryReal + '">' +
+            '   <input class="form-control" type="text" name="addBdgCost_' + category + '" placeholder="Стойност" pattern="^\d+([.,]\d+)?$">' +
+            '   (общо)' +
             '   <button type="button" class="btn btn-danger btn-xs id="removeBudgetItemsButton_' + category + '" title="Премахни" onclick="removePlanItem(this)">' +
             '       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>' +
             '   </button><br />' +
@@ -101,7 +102,7 @@
             var all_items = jQuery(":text");
             var budget_items = [];
             for (var i = 0; i < all_items.length; i++) {
-                if (all_items[i].name != 'destination' && all_items[i].name.lastIndexOf('budget_') != 0) {
+                if (all_items[i].name != 'destination' && all_items[i].name.lastIndexOf('budget_') != 0 && all_items[i].name.lastIndexOf('addBdg') != 0) {
                     selected_luggage_items.push([all_items[i].name, all_items[i].value]);
                 } else if (all_items[i].name.lastIndexOf('budget_') === 0 && all_items[i].value != '') {
                     var split = all_items[i].name.split("_");
@@ -110,6 +111,21 @@
                     var category = split[3];
                     var cost = all_items[i].value;
                     budget_items.push([name, cost, category, shared]);
+                }
+            }
+
+            var additionalBudgetItems = [];
+            for (var i = 0; i < all_items.length; i++) {
+                if (all_items[i].name.lastIndexOf('addBdg') === 0) {
+                    additionalBudgetItems.push(all_items[i]);
+                }
+            }
+            for (var i = 0; i < additionalBudgetItems.length; i += 2) {
+                var label = additionalBudgetItems[i].value;
+                var cat = additionalBudgetItems[i].id;
+                var value = additionalBudgetItems[i + 1].value;
+                if (label != '' && value != '') {
+                    budget_items.push([label, value, cat, "1"]);
                 }
             }
 
@@ -309,7 +325,7 @@
                     ?>
                     <div id="addMoreBudgetItems_<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>"></div>
                     <button type="button" class="btn btn-info btn-xs" id="addMoreLuggageItemsButton_<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>"
-                            title="Добави" onclick="addBudgetItem('<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>')">
+                            title="Добави" onclick="addBudgetItem('<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>', '<?= $category; ?>')">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     </button>
                 </div>
