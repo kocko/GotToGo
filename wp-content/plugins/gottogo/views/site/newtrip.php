@@ -93,15 +93,23 @@
             var destination = jQuery('#destination').val();
             var luggage_items = jQuery(":checkbox").serializeArray();
 
-            var result = [];
+            var selected_luggage_items = [];
             for (var i = 0; i < luggage_items.length; i++) {
-                result.push([luggage_items[i].name, luggage_items[i].value]);
+                selected_luggage_items.push([luggage_items[i].name, luggage_items[i].value]);
             }
 
-            var additional_items = jQuery(":text");
-            for (var i = 0; i < additional_items.length; i++) {
-                if (additional_items[i].name != 'destination' && additional_items[i].name.lastIndexOf('budget_') != 0) {
-                    result.push([additional_items[i].name, additional_items[i].value]);
+            var all_items = jQuery(":text");
+            var budget_items = [];
+            for (var i = 0; i < all_items.length; i++) {
+                if (all_items[i].name != 'destination' && all_items[i].name.lastIndexOf('budget_') != 0) {
+                    selected_luggage_items.push([all_items[i].name, all_items[i].value]);
+                } else if (all_items[i].name.lastIndexOf('budget_') === 0 && all_items[i].value != '') {
+                    var split = all_items[i].name.split("_");
+                    var name = split[1];
+                    var shared = split[2];
+                    var category = split[3];
+                    var cost = all_items[i].value;
+                    budget_items.push([name, cost, category, shared]);
                 }
             }
 
@@ -109,7 +117,11 @@
             var nightsCount = jQuery("#nightsCount").val();
 
             jQuery.post("<?= get_site_url(); ?>/wp-content/plugins/gottogo/views/site/create_new_trip_action.php",
-                { destination : destination, selectedLuggageItems: result, tourists_count: touristsCount, nights_count : nightsCount},
+                {
+                    destination : destination, selectedLuggageItems: selected_luggage_items,
+                    touristsCount: touristsCount, nightsCount : nightsCount,
+                    budgetItems : budget_items
+                },
                 function (result) {
                     if (result == true) {
                         jQuery("#tripSuccessMessage").show(400);
@@ -285,7 +297,7 @@
                     foreach ($items as $item) {
                         ?>
                         <label for="<?= $item['name']; ?>"><?= $item['name']; ?></label>
-                        <input id="<?= $item['name']; ?>" name="budget_<?= $category; ?>"
+                        <input id="<?= $item['name']; ?>" name="budget_<?= $item['name']; ?>_<?= $item['shared'];?>_<?= $category; ?>"
                                class="form-control" pattern="^\d+([.,]\d+)?$"
                                onblur="validateBudgetCost(this)">
                         <?php

@@ -10,8 +10,8 @@ require_once '../utils/luggage_utils.php';
 function createNewTrip() {
     $user_id = $_SESSION['user']['id'];
     $destination = sanitize_text_field($_POST['destination']);
-    $tourists_count = sanitize_text_field($_POST['tourists_count']);
-    $nights_count = sanitize_text_field($_POST['nights_count']);
+    $tourists_count = sanitize_text_field($_POST['touristsCount']);
+    $nights_count = sanitize_text_field($_POST['nightsCount']);
     $query = sprintf("INSERT INTO trip (user_id, destination, tourists, nights) values ('%s','%s', '%s', '%s');",
         mysql_real_escape_string($user_id), mysql_real_escape_string($destination),
         mysql_real_escape_string($tourists_count), mysql_real_escape_string($nights_count));
@@ -37,7 +37,26 @@ function createNewTrip() {
         $result = mysql_query($items_query, $GLOBALS['connection']);
 
         if (!$result) {
-            echo false;
+            return false;
+        }
+    }
+
+    $budget_query = "INSERT into trip_budget(trip_id, name, category, cost, shared) VALUES ";
+    if ($_POST['budgetItems']) {
+        $postedBudgetItems = $_POST['budgetItems'];
+        foreach ($postedBudgetItems as $entry) {
+            $name = $entry[0];
+            $cost = $entry[1];
+            $category = $entry[2];
+            $shared = $entry[3];
+            $budget_query .= "(" . $trip_id . ", '" . $name . "', '" . $category . "', '" . $cost . "', '" . $shared . "'),";
+        }
+
+        $budget_query = rtrim($budget_query , ',');
+        $result = mysql_query($budget_query , $GLOBALS['connection']);
+
+        if (!$result) {
+            return false;
         }
     }
     return true;
