@@ -14,23 +14,25 @@ function getForgottenPasswordForm() {
             jQuery("#send_new_password").click(function(){
                 var forgotten_password_email = jQuery('#forgotten_password_email').val();
 
-                jQuery.post("wp-content/plugins/gottogo/views/utils/generate_new_password.php",
-                    { forgotten_password_email : forgotten_password_email },
-                    function (result) {
-                        if (result == 'Success') {
-                            jQuery('#email_sent_info_message').show('400');
-                        } else {
-                            jQuery('#email_sent_info_message').hide();
+                if (forgotten_password_email != '') {
+                    jQuery.post("wp-content/plugins/gottogo/views/utils/generate_new_password.php",
+                        { forgotten_password_email : forgotten_password_email },
+                        function (result) {
+                            if (result == 'Success') {
+                                jQuery('#email_sent_info_message').show('400');
+                            } else {
+                                jQuery('#email_sent_info_message').hide();
+                            }
                         }
-                    }
-                );
+                    );
+                } else {
+                    //TODO Show validation error message
+                }
             });
         });
 
         function disableFormButtonForgotten(result, formButtonId) {
             if (result == 0) {
-
-
                 jQuery('#' + formButtonId).prop('disabled', result == 0);
             }
         }

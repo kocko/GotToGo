@@ -100,13 +100,16 @@
 
             var additional_items = jQuery(":text");
             for (var i = 0; i < additional_items.length; i++) {
-                if (additional_items[i].name != 'destination') {
+                if (additional_items[i].name != 'destination' && additional_items[i].name.lastIndexOf('budget_') != 0) {
                     result.push([additional_items[i].name, additional_items[i].value]);
                 }
             }
 
+            var touristsCount = jQuery("#touristsCount").val();
+            var nightsCount = jQuery("#nightsCount").val();
+
             jQuery.post("<?= get_site_url(); ?>/wp-content/plugins/gottogo/views/site/create_new_trip_action.php",
-                { destination : destination, selectedLuggageItems: result},
+                { destination : destination, selectedLuggageItems: result, tourists_count: touristsCount, nights_count : nightsCount},
                 function (result) {
                     if (result == true) {
                         jQuery("#tripSuccessMessage").show(400);
@@ -281,10 +284,13 @@
                     $items = getBudgetCostsPerCategory($category);
                     foreach ($items as $item) {
                         ?>
-                        <label for="<?= $item; ?>"><?= $item; ?></label>
-                        <input id="<?= $item; ?>" name="budget_<?= $category; ?>"
+                        <label for="<?= $item['name']; ?>"><?= $item['name']; ?></label>
+                        <input id="<?= $item['name']; ?>" name="budget_<?= $category; ?>"
                                class="form-control" pattern="^\d+([.,]\d+)?$"
                                onblur="validateBudgetCost(this)">
+                        <?php
+                            echo $item['shared'] == 1 ? '(общо)' : '(на човек)';
+                        ?>
                         <br />
                     <?php
                     }
