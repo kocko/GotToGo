@@ -18,12 +18,12 @@ function getBudgetCategories() {
 
 function getBudgetCostsPerCategory($category) {
     $cat = mysql_real_escape_string($category);
-    $query = sprintf("SELECT DISTINCT name FROM budget_planning WHERE category='%s' order by id", $cat);
+    $query = sprintf("SELECT name, shared FROM budget_planning WHERE category='%s' order by id", $cat);
     $result = mysql_query($query, $GLOBALS['connection']);
 
     $ret = array();
     while ($r = mysql_fetch_assoc($result)) {
-        $ret[] = $r['name'];
+        $ret[] = array('name' => $r['name'], 'shared' => $r['shared']);
     }
 
     return $ret;
