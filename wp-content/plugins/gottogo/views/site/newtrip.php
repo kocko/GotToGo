@@ -209,6 +209,17 @@
                         <?php organizeBudget(); ?>
                     </div>
                     <div class="row collapse" id="organizeLuggageDiv" aria-expanded="false">
+                        <div align="center">
+                            <h1 style="font-size: 3em;">Организиране на багаж</h1>
+                            <div style="width: 90%;">
+                                Вещите, които взимате със себе си са основата на вашето пътуването.
+                                Тъй като често се случва човек да забравя разни неща, ние Ви препоръчваме да започнете да планирате багажа си поне седмица преди пътуването.
+                                За да Ви е лесно и удобно ние сме създали функционалност, която може да използвате в дългосрочен период от време.
+                                Тя е развита по такъв начин, че да може да добавяте неща в списъка, когато ви хрумне.
+                                За Ваше улеснение всички вещи са разпределени по категории, а Вие само трябва да изберете чрез маркиране, тези които ще са Ви необходими. Приятно организиране!
+                            </div>
+                        </div>
+                        <div class="row" style="height: 20pt;"></div>
                         <?php organizeLuggage(); ?>
                     </div>
                     <div class="row" style="height: 15pt;"></div>
@@ -229,7 +240,7 @@
     function getLuggageItemsNavigationTabs() {
         require_once '../utils/luggage_utils.php';
 ?>
-    <ul class="nav nav-tabs nav-justified" role="tablist">
+    <ul class="nav nav-tabs nav-justified" role="tablist" style="margin-left:0;">
     <?php
         $categories = getLuggageItemsCategories();
         foreach ($categories as $category) {
@@ -257,9 +268,11 @@
                         <input id="<?= $item; ?>" type="checkbox" name="<?= $category; ?>" value="<?= $item; ?>">
                         <label for="<?= $item; ?>"><?= $item; ?></label>
                     </div>
+                    <br />
                     <?php
                 }
             ?>
+                <br />
                 <div id="addMoreLuggageItems_<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>"></div>
                 <button type="button" class="btn btn-info btn-xs" id="addMoreLuggageItemsButton_<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>"
                         title="Добави" onclick="addLuggageItem('<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>')">
