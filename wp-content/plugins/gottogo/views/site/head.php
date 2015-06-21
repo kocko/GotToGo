@@ -33,7 +33,7 @@
 <div class="<?php echo $wrap_class; ?> noprint">
     <header class="home-header">
         <div class="home-logo onetone-logo ">
-            <a href="<?php echo esc_url(home_url('/')); ?>">
+            <a href="#">
                 <?php if (onetone_options_array('logo') != "") { ?>
                     <img src="<?php echo onetone_options_array('logo'); ?>" alt="<?php bloginfo('name'); ?>"/>
                 <?php } else { ?>
@@ -50,7 +50,6 @@
         <a class="home-navbar navbar" href="javascript:"></a>
         <nav class="home-navigation top-nav">
             <ul>
-                <li class="onetone-menuitem"><a id="onetone-home" href="#home"><span>Начало</span></a></li>
                 <?php
                 if (isset($_SESSION['user']) && strcmp($_SESSION['user']['role'], 'user') == 0) {
                 ?>

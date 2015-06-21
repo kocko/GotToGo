@@ -21,7 +21,10 @@ if ($trip == -1) {
     <div class="row in" id="newtrip" aria-expanded="true" aria-controls="newTripCollapse" style="width: 70%; margin-left: auto; margin-right: auto;">
         <div class="col-xs-12">
             <div class="well">
-                <h1>Принтиране на пътуване до <?= $trip['destination'];  ?></h1>
+                <h1></h1>
+                <div align="center">
+                    <h1 style="font-size: 2em;">Планове за пътуване до <?= $trip['destination'];  ?></h1>
+                </div>
                 <div class="row">
                     <h1>Планиран бюджет</h1>
                     <?php getBudget($id, $trip['tourists'], $trip['nights']); ?>

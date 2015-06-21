@@ -22,14 +22,18 @@
 <div class="row in" id="newtrip" aria-expanded="true" aria-controls="newTripCollapse" style="width: 70%; margin-left: auto; margin-right: auto;">
     <div class="col-xs-12">
         <div class="well">
-            <h1>Преглед на пътуване до <?= $trip['destination'];  ?></h1>
+            <div align="center">
+                <h1 style="font-size: 2em;">Преглед на пътуване до <?= $trip['destination'];  ?></h1>
+            </div>
+            <br />
             <div class="row" aria-expanded="false">
-                <ul class="nav nav-tabs nav-justified" role="tablist">
+                <ul class="nav nav-tabs nav-justified" role="tablist" style="margin-left: 0;">
                     <li role="presentation" class="active"><a href="#budgetPreview" role="tab" data-toggle="tab">Планиран бюджет</a></li>
                     <li role="presentation"><a href="#luggagePreview" role="tab" data-toggle="tab">Планиран багаж</a></li>
                 </ul>
             </div>
             <div class="tab-content">
+                <br />
                 <div role="tabpanel" class="tab-pane active" id="budgetPreview">
                     <?php getBudget($id, $trip['tourists'], $trip['nights']); ?>
                 </div>

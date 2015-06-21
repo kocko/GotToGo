@@ -26,12 +26,24 @@ if ($_SESSION['user']) {
     }
 </script>
 <div>
-    <div class="row" id="editProfile" aria-expanded="false" aria-controls="editProfileCollapse">
+    <div class="row" id="editProfile" aria-expanded="false" aria-controls="editProfileCollapse" >
         <div class="col-xs-12 col-md-6">
-            <div class="well">
-                <div>
-                    <h1>Личен профил</h1>
-                    Това е страницата с личният Ви профил. В нея може да намерите данните, които сте въвели при регистрация и при нужда да ги редактирате.
+            <div class="well" style="width: 1330px; margin-left: 30%; margin-right: auto;">
+                <div align="center">
+                    <?php
+                        if (strcmp($user['role'], 'admin') == 0) {
+                    ?>
+                            <h1 style="font-size: 3em;">Администраторски профил</h1>
+                    <?php
+                        } else {
+                    ?>
+                    <h1 style="font-size: 3em;">Личен профил</h1>
+                    <?php
+                        }
+                    ?>
+                    <div  style="width: 90%;">
+                        Това е страницата с личният Ви профил. В нея може да намерите данните, които сте въвели при регистрация и при нужда да ги редактирате.
+                    </div>
                 </div>
                 </br>
                 <form action="" method="post" id="edit_form" enctype="application/x-www-form-urlencoded">
@@ -59,10 +71,15 @@ if ($_SESSION['user']) {
                                name="edit_password_confirm" value="" required onkeyup="validatePassword('edit_password', 'edit_password_confirm')">
                         <span class="help-block"></span>
                     </div>
-                    <a type="submit" class="btn btn-success btn-block"
-                            id="edit_action" name="edit_action" onclick="updateProfileData(<?= $user['id'];?>)">
-                        Запис
-                    </a>
+                    <div class="row noprint">
+                        <div class="pull-right">
+                            <a type="submit" class="btn btn-success btn-block btn-lg"
+                               id="edit_action" name="edit_action" onclick="updateProfileData(<?= $user['id'];?>)">
+                                Запис
+                            </a>
+                        </div>
+                    </div>
+
                 </form>
             </div>
         </div>

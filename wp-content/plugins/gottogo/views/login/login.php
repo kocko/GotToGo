@@ -69,7 +69,11 @@ function login_action() {
         if ($row['fullname']) {
             session_start();
             $_SESSION['user'] = $row;
-            header('Location: ' . get_site_url() . '/wp-content/plugins/gottogo/views/site/newtrip.php');
+            if (strcmp($row['role'], 'admin') == 0) {
+                header('Location: ' . get_site_url() . '/wp-content/plugins/gottogo/views/site/profile.php');
+            } else {
+                header('Location: ' . get_site_url() . '/wp-content/plugins/gottogo/views/site/newtrip.php');
+            }
         } else {
             echo "Невалидни потребителско име и парола";
         }

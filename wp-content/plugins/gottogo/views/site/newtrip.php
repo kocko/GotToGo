@@ -152,7 +152,7 @@
     });
 </script>
 
-<div class="row in" id="newtrip" aria-expanded="true" aria-controls="newTripCollapse" style="width: 70%; margin-left: auto; margin-right: auto;">
+<div class="row in" id="newtrip" aria-expanded="true" aria-controls="newTripCollapse" style="width: 1330px; margin-left: auto; margin-right: auto;">
     <div class="col-xs-12">
         <div class="well">
             <div align="center">
