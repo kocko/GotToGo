@@ -3,6 +3,8 @@
 
     require_once '../utils/luggage_utils.php';
 
+    require_once '../utils/budget_utils.php';
+
     include_once 'head.php';
 
     if (!isset($_GET['id'])) {
@@ -30,8 +32,8 @@
                 </ul>
             </div>
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane" id="budgetPreview">
-                    budget
+                <div role="tabpanel" class="tab-pane active" id="budgetPreview">
+                    <?php getBudget($id, $trip['tourists'], $trip['nights']); ?>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="luggagePreview">
                     <?php getLuggageItems($id); ?>
@@ -68,8 +70,54 @@ function getLuggageItems($id) {
     }
 }
 
-function getBudget($id) {
-    $budget = getTripBudgetForTripWithId($id);
+function getBudget($id, $people, $nights) {
+    $budgetItems = getTripBudgetForTripWithId($id);
+    $categories = getBudgetCategories();
+    $total = 0;
+    foreach ($categories as $category) {
+        $list = array();
+        foreach ($budgetItems as $item) {
+            if (strcmp($item['category'], $category) == 0) {
+                $list[] = $item;
+            }
+        }
+        if (count($list) != 0) {
+        ?>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title"><?= $category; ?></h4>
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <ul class="list-unstyled" style="line-height: 2">
+                    <?php
+                    for ($i = 0; $i < count($list); $i++) {
+                    ?>
+                        <li><span class="fa fa-check text-success"></span> <?= $list[$i]['name']; ?> <?= $list[$i]['cost']; ?> лв.</li>
+                    <?php
+                        if (strcmp($list[$i]['name'], 'Цена на нощувка') == 0) {
+                            $total += $list[$i]['cost'] * $nights * $people;
+                        } else if ($list[$i]['shared'] == 1) {
+                            $total += $list[$i]['cost'];
+                        } else if ($list[$i]['shared'] == 0) {
+                            $total += ($list[$i]['cost'] * $people);
+                        }
+                    }
+                    ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <?php
+        }
+    }
+    ?>
+    <div class="panel-default">
+        <div class="panel-heading pull-right">
+            <h2>Общи разходи: <?= $total; ?> лв.</h2>
+        </div>
+    </div>
+    <?php
 }
 
 ?>

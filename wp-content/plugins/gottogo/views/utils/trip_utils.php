@@ -1,10 +1,11 @@
 <?php
 
 function getTripsForCurrentUser($userId) {
-    $result = mysql_query("SELECT id as tripId, destination as destination FROM trip WHERE user_id = ". $userId);
+    $result = mysql_query("SELECT id as tripId, destination as destination, tourists as tourists, nights as nights FROM trip WHERE user_id = ". $userId);
     $rows = array();
     while($r = mysql_fetch_assoc($result)) {
-        $rows[] = array('destination' => $r['destination'], 'id' => $r['tripId']);
+        $rows[] = array('destination' => $r['destination'], 'id' => $r['tripId'],
+                        'tourists' => $r['tourists'], 'nights' => $r['nights']);
     }
     return $rows;
 }
@@ -88,7 +89,6 @@ function getTripsForCurrentUserWithId($user_id, $trip_id) {
 
 function getTripItemsForTripWithId($trip_id) {
     $items_query = sprintf("select category, group_concat(DISTINCT name SEPARATOR ',') AS items from trip_item where trip_id = " . $trip_id . " group by category");
-//    $items_query = sprintf("SELECT name as name, category as category FROM trip_item where trip_id = " . $trip_id);
     $result = mysql_query($items_query, $GLOBALS['connection']);
     $rows = array();
     while($r = mysql_fetch_assoc($result)) {
