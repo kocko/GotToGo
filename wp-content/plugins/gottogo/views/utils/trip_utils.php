@@ -1,10 +1,11 @@
 <?php
 
 function getTripsForCurrentUser($userId) {
-    $result = mysql_query("SELECT id as tripId, destination as destination FROM trip WHERE user_id = ". $userId);
+    $result = mysql_query("SELECT id as tripId, destination as destination, tourists as tourists, nights as nights FROM trip WHERE user_id = ". $userId);
     $rows = array();
     while($r = mysql_fetch_assoc($result)) {
-        $rows[] = array('destination' => $r['destination'], 'id' => $r['tripId']);
+        $rows[] = array('destination' => $r['destination'], 'id' => $r['tripId'],
+                        'tourists' => $r['tourists'], 'nights' => $r['nights']);
     }
     return $rows;
 }
@@ -72,4 +73,39 @@ function makeBudgetItemsCopy($old_trip_id, $new_trip_id) {
             die ("error in database connection");
         }
     }
+}
+
+function getTripsForCurrentUserWithId($user_id, $trip_id) {
+    $trips = getTripsForCurrentUser($user_id);
+    if (count($trips) > 0) {
+        foreach ($trips as $trip) {
+            if ($trip['id'] == $trip_id) {
+                return $trip;
+            }
+        }
+    }
+    return -1;
+}
+
+function getTripItemsForTripWithId($trip_id) {
+    $items_query = sprintf("select category, group_concat(DISTINCT name SEPARATOR ',') AS items from trip_item where trip_id = " . $trip_id . " group by category");
+    $result = mysql_query($items_query, $GLOBALS['connection']);
+    $rows = array();
+    while($r = mysql_fetch_assoc($result)) {
+        $rows[] = array('items' => $r['items'], 'category' => $r['category']);
+    }
+    return $rows;
+}
+
+function getTripBudgetForTripWithId($trip_id) {
+    $budget_query = sprintf("SELECT name as name, category as category, cost as cost, shared as shared FROM trip_budget where trip_id = " . $trip_id);
+    $result = mysql_query($budget_query, $GLOBALS['connection']);
+    $rows = array();
+    while($r = mysql_fetch_assoc($result)) {
+        $rows[] = array('name' => $r['name'],
+                        'category' => $r['category'],
+                        'cost' => $r['cost'],
+                        'shared' => $r['shared']);;
+    }
+    return $rows;
 }

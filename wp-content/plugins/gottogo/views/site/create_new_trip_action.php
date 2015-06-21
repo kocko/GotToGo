@@ -10,8 +10,14 @@ require_once '../utils/luggage_utils.php';
 function createNewTrip() {
     $user_id = $_SESSION['user']['id'];
     $destination = sanitize_text_field($_POST['destination']);
-    $tourists_count = sanitize_text_field($_POST['touristsCount']);
-    $nights_count = sanitize_text_field($_POST['nightsCount']);
+    $tourists_count = "1";
+    if ($_POST['touristsCount']) {
+        $tourists_count = sanitize_text_field($_POST['touristsCount']);
+    }
+    $nights_count = "1";
+    if ($_POST['nightsCount']) {
+        $nights_count = sanitize_text_field($_POST['nightsCount']);
+    }
     $query = sprintf("INSERT INTO trip (user_id, destination, tourists, nights) values ('%s','%s', '%s', '%s');",
         mysql_real_escape_string($user_id), mysql_real_escape_string($destination),
         mysql_real_escape_string($tourists_count), mysql_real_escape_string($nights_count));
