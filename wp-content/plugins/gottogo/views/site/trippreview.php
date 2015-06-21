@@ -18,9 +18,7 @@
         header('Location: mytrips.php');
     }
 ?>
-<script>
 
-</script>
 <div class="row in" id="newtrip" aria-expanded="true" aria-controls="newTripCollapse">
     <div class="col-xs-12">
         <div class="well">
@@ -45,6 +43,10 @@
 <?php
 function getLuggageItems($id) {
     $items = getTripItemsForTripWithId($id);
+    if (count($items) == 0) {
+        echo "Нямате планиран багаж за това пътуване!";
+        return;
+    }
     foreach ($items as $item) {
         ?>
         <div class="panel panel-default">

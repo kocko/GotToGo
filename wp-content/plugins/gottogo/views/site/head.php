@@ -17,13 +17,20 @@
 <script src="<?= get_site_url(); ?>/wp-includes/js/typeahead.js/bootstrap3-typeahead.js"></script>
 <script src="<?= get_site_url(); ?>/wp-includes/bootboxjs/bootbox.min.js"></script>
 <script src="../js/gottogo.js"></script>
-
+<style type="text/css">
+    @media
+    print {
+        .noprint {
+            display: none;
+        }
+    }
+</style>
 <?php if (is_home()) {
     $wrap_class = "home-site";
 } else {
     $wrap_class = "site";
 } ?>
-<div class="<?php echo $wrap_class; ?>">
+<div class="<?php echo $wrap_class; ?> noprint">
     <header class="home-header">
         <div class="home-logo onetone-logo ">
             <a href="<?php echo esc_url(home_url('/')); ?>">
@@ -65,3 +72,4 @@
         </nav>
         <div class="clear"></div>
     </header>
+</div>
