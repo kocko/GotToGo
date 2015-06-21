@@ -33,7 +33,7 @@
 <div class="<?php echo $wrap_class; ?> noprint">
     <header class="home-header">
         <div class="home-logo onetone-logo ">
-            <a href="#">
+            <a href="#  ">
                 <?php if (onetone_options_array('logo') != "") { ?>
                     <img src="<?php echo onetone_options_array('logo'); ?>" alt="<?php bloginfo('name'); ?>"/>
                 <?php } else { ?>

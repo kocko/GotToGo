@@ -45,7 +45,7 @@
         window.location = 'printtrip.php?id=' + tripId;
     }
 </script>
-<div class="row in" id="newtrip" aria-expanded="true" aria-controls="newTripCollapse" style="background: #f5f5f5; width: 1330px; margin-left: auto; margin-right: auto;">
+<div class="row in" id="newtrip" aria-expanded="true" aria-controls="newTripCollapse" style="background: #f5f5f5; width: 1080px; margin-left: auto; margin-right: auto;">
     <div class="col-xs-12">
             <div align="center">
                 <h1 style="font-size: 3em;">Моите пътувания</h1>
@@ -85,7 +85,7 @@
                             echo $trips[$i - 1]['destination'];
                             ?>
                         </td>
-                        <td style="width: 40%;">
+                        <td style="width: 55%;">
                             <button type="button" class="btn btn-primary btn-xs" id="tripEdit" title="Редактирай">
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                 Редактиране

@@ -152,7 +152,7 @@
     });
 </script>
 
-<div class="row in" id="newtrip" aria-expanded="true" aria-controls="newTripCollapse" style="width: 1330px; margin-left: auto; margin-right: auto;">
+<div class="row in" id="newtrip" aria-expanded="true" aria-controls="newTripCollapse" style="width: 1080px; margin-left: auto; margin-right: auto;">
     <div class="col-xs-12">
         <div class="well">
             <div align="center">
@@ -172,11 +172,11 @@
                     Моите пътувания
                 </a>
             </div>
-            <div class="alert alert-error collapse alert-dismissible" id="tripErrorMessage">
+            <div class="alert alert-info collapse alert-dismissible" id="tripErrorMessage">
                 Възникна грешка! Моля, опитайте отново!
             </div>
             <form class="form-inline" action="" method="post" id="newTripDataForm">
-                <div class="row" style="margin-left: 520px;">
+                <div class="row" style="margin-left: 360px;">
                     <input class="typeahead form-control" type="text" autocomplete="off"
                            placeholder="Въведете дестинация: City, Country"
                            id="destination" name="destination" value="">
@@ -309,7 +309,7 @@
     function getNightsStayingAndPeopleTravellingDiv() {
     ?>
         <div class="row" style="height: 20pt;"></div>
-        <div style="margin-left: 450px;">
+        <div style="margin-left: 280px;">
             <input class="form-control" autocomplete="off" type="number"
                    placeholder="Брой пътници" id="touristsCount" name="touristsCount" min="1" step="1">
             <input class="form-control" autocomplete="off" type="number"
