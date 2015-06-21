@@ -44,6 +44,10 @@
     function printTrip(tripId) {
         window.location = 'printtrip.php?id=' + tripId;
     }
+
+    function editTrip(tripId) {
+        window.location = 'edittrip.php?id=' + tripId;
+    }
 </script>
 <div class="row in" id="newtrip" aria-expanded="true" aria-controls="newTripCollapse" style="background: #f5f5f5;">
     <div class="col-xs-12">
@@ -80,7 +84,7 @@
                             ?>
                         </td>
                         <td style="width: 40%;">
-                            <button type="button" class="btn btn-primary btn-xs" id="tripEdit" title="Редактирай">
+                            <button type="button" class="btn btn-primary btn-xs" id="tripEdit" title="Редактирай" onclick="editTrip(<?= $trips[$i - 1]['id']; ?>)">
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                 Редактиране
                             </button>
