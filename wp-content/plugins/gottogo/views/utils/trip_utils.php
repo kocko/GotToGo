@@ -17,17 +17,21 @@ function copyTrip($trip_id) {
 }
 
 function makeTripCopy($trip_id) {
-    $query = sprintf("SELECT user_id as user_id, destination as destination FROM trip WHERE id = '%d'", $trip_id);
+    $query = sprintf("SELECT user_id as user_id, destination as destination, tourists as tourists, nights as nights FROM trip WHERE id = '%d'", $trip_id);
     $result = mysql_query($query, $GLOBALS['connection']);
     $rows = array();
     while($r = mysql_fetch_assoc($result)) {
-        $rows[] = array('destination' => $r['destination'], 'user_id' => $r['user_id']);
+        $rows[] = array('destination' => $r['destination'], 'user_id' => $r['user_id'], 'tourists' => $r['tourists'], 'nights' => $r['nights']);
     }
     $destination = $rows[0]['destination'];
     $user_id = $rows[0]['user_id'];
-    $newTripQuery = sprintf("INSERT INTO trip(user_id, destination) values (%s, '%s')",
+    $tourists = $rows[0]['tourists'];
+    $nights = $rows[0]['nights'];
+    $newTripQuery = sprintf("INSERT INTO trip(user_id, destination, tourists, nights) values ('%s', '%s', '%s', '%s')",
                                 mysql_real_escape_string($user_id),
-                                mysql_real_escape_string($destination));
+                                mysql_real_escape_string($destination),
+                                mysql_real_escape_string($tourists),
+                                mysql_real_escape_string($nights));
     mysql_query($newTripQuery, $GLOBALS['connection']);
     return mysql_insert_id();
 }
