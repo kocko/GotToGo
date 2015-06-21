@@ -72,6 +72,10 @@ function getLuggageItems($id) {
 
 function getBudget($id, $people, $nights) {
     $budgetItems = getTripBudgetForTripWithId($id);
+    if (count($budgetItems) == 0) {
+        echo "Нямате планиран бюджет за това пътуване!";
+        return;
+    }
     $categories = getBudgetCategories();
     $total = 0;
     foreach ($categories as $category) {
