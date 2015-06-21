@@ -19,7 +19,7 @@
     }
 ?>
 
-<div class="row in" id="newtrip" aria-expanded="true" aria-controls="newTripCollapse">
+<div class="row in" id="newtrip" aria-expanded="true" aria-controls="newTripCollapse" style="width: 70%; margin-left: auto; margin-right: auto;">
     <div class="col-xs-12">
         <div class="well">
             <h1>Преглед на пътуване до <?= $trip['destination'];  ?></h1>
