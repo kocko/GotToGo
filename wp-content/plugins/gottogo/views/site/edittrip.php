@@ -162,10 +162,12 @@ if ($trip == -1) {
 }
 
 ?>
-<div class="row in" id="newtrip" aria-expanded="true" aria-controls="newTripCollapse" style="width: 1080px; margin-left: auto; margin-right: auto;">
+<div class="row in" id="newtrip" aria-expanded="true" aria-controls="newTripCollapse" style="width: 1130px; margin-left: auto; margin-right: auto;">
     <div class="col-xs-12">
         <div class="well">
-            <h1>Редактиране на пътуване до <?= $trip['destination']; ?></h1>
+            <div align="center">
+                <h1 style="font-size: 2em;">Редактиране на пътуване до <?= $trip['destination']; ?></h1>
+            </div>
             <br />
             <div class="alert alert-info collapse alert-dismissible" id="tripSuccessMessage">
                 Пътуването е запазено успешно! Може да го видите на страницата
@@ -222,13 +224,13 @@ function editLuggage($trip_id) {
 
 function editBudget($trip) {
     getNightsStayingAndPeopleTravellingDiv($trip);
-//    getBudgetNavigationTabs();
-//    getBudgetTabPanels();
+    getBudgetNavigationTabs();
+    getBudgetTabPanels($trip);
 }
 
 function getLuggageItemsNavigationTabs() {
     ?>
-    <ul class="nav nav-tabs nav-justified" role="tablist">
+    <ul class="nav nav-tabs nav-justified" role="tablist" style="margin-left: 0;">
         <?php
         $categories = getLuggageItemsCategories();
         foreach ($categories as $category) {
@@ -271,6 +273,7 @@ function getLuggageTabPanels($trip_id) {
                         <input id="<?= $item; ?>" type="checkbox" name="<?= $category; ?>" value="<?= $item; ?>" <?= $found ? 'checked="checked"' : ''; ?>">
                         <label for="<?= $item; ?>"><?= $item; ?></label>
                     </div>
+                    <br />
                 <?php
                 }
                 ?>
@@ -318,5 +321,69 @@ function getNightsStayingAndPeopleTravellingDiv($trip) {
         Моля, въведете положителна числова стойност за 'Брой нощувки'!
     </div>
     <div class="row" style="height: 15pt;"></div>
+<?php
+}
+
+function getBudgetNavigationTabs() {
+    require_once '../utils/budget_utils.php';
+    ?>
+    <div id="budgetOrganizer" style="display:none;">
+        <ul class="nav nav-tabs nav-justified" role="tablist" style="margin-left: 0;">
+            <?php
+            $categories = getBudgetCategories();
+            foreach ($categories as $category) {
+                ?><li role="presentation"><a href="#<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>" aria-controls="home" role="tab" data-toggle="tab"><?= $category; ?></a></li><?php
+            }
+            ?>
+        </ul>
+    </div>
+<?php
+}
+
+function getBudgetTabPanels($trip) {
+    ?>
+    <div class="tab-content">
+        <?php
+        $categories = getBudgetCategories();
+        $currentTripBudgetItems = getTripBudgetForTripWithId($trip['id']);
+        foreach ($categories as $category) {
+            ?>
+            <div role="tabpanel" class="tab-pane" id="<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>">
+                <table>
+                <?php
+                $items = getBudgetCostsPerCategory($category);
+                $list = null;
+                foreach ($currentTripBudgetItems as $selectedItems) {
+                    if (strcmp($selectedItems['category'], $category) == 0) {
+                        $list[] = $selectedItems['name'];
+                    }
+                }
+
+                foreach ($items as $item) {
+                    ?>
+                    <tr>
+                        <td width="30%;" style="border: none !important;"><label for="<?= $item['name']; ?>"><?= $item['name']; ?></label></td>
+                        <td style="border: none !important;"><input id="<?= $item['name']; ?>" name="budget_<?= $item['name']; ?>_<?= $item['shared'];?>_<?= $category; ?>"
+                           class="form-control" pattern="^\d+([.,]\d+)?$"
+                           onblur="validateBudgetCost(this)">
+                    <?php
+                    echo $item['shared'] == 1 ? '(общо)' : '(на човек)';
+                    ?></td>
+                    </tr>
+
+                <?php
+                }
+                ?>
+                </table>
+                <div id="addMoreBudgetItems_<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>"></div>
+                <button type="button" class="btn btn-info btn-xs" id="addMoreLuggageItemsButton_<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>"
+                        title="Добави" onclick="addBudgetItem('<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>', '<?= $category; ?>')">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+            </div>
+        <?php
+        }
+        ?>
+    </div>
 <?php
 }

@@ -152,7 +152,7 @@
     });
 </script>
 
-<div class="row in" id="newtrip" aria-expanded="true" aria-controls="newTripCollapse" style="width: 1080px; margin-left: auto; margin-right: auto;">
+<div class="row in" id="newtrip" aria-expanded="true" aria-controls="newTripCollapse" style="width: 1130px; margin-left: auto; margin-right: auto;">
     <div class="col-xs-12">
         <div class="well">
             <div align="center">
@@ -344,7 +344,7 @@
                     foreach ($items as $item) {
                         ?>
                         <tr>
-                        <td width="20%;" style="border: none !important;"><label for="<?= $item['name']; ?>"><?= $item['name']; ?></label></td>
+                        <td width="30%;" style="border: none !important;"><label for="<?= $item['name']; ?>"><?= $item['name']; ?></label></td>
                         <td style="border: none !important;"><input id="<?= $item['name']; ?>" name="budget_<?= $item['name']; ?>_<?= $item['shared'];?>_<?= $category; ?>"
                                class="form-control" pattern="^\d+([.,]\d+)?$"
                                onblur="validateBudgetCost(this)">
