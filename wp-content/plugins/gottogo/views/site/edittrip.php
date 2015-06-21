@@ -129,19 +129,16 @@
 //                }
 //            }
 
-//            var touristsCount = jQuery("#touristsCount").val();
-//            var nightsCount = jQuery("#nightsCount").val();
-
-        console.log(selected_luggage_items);
+        var touristsCount = jQuery("#touristsCount").val();
+        var nightsCount = jQuery("#nightsCount").val();
 
         jQuery.post("<?= get_site_url(); ?>/wp-content/plugins/gottogo/views/site/update_trip_action.php",
             {
-                tripId : tripId, selectedLuggageItems: selected_luggage_items
-//                    touristsCount: touristsCount, nightsCount : nightsCount,
+                tripId : tripId, selectedLuggageItems: selected_luggage_items,
+                touristsCount: touristsCount, nightsCount : nightsCount
 //                    budgetItems : budget_items
             },
             function (result) {
-                console.log(result);
                 if (result == true) {
                     jQuery("#tripSuccessMessage").show(400);
                     jQuery("#newTripDataForm").hide();
@@ -195,7 +192,7 @@ if ($trip == -1) {
                     </div>
                     <div class="row" style="height: 15pt;"></div>
                     <div class="row collapse" id="organizeBudgetDiv" aria-expanded="false" aria-controls="organizeBudgetCollapse">
-                        <?php //organizeBudget(); ?>
+                        <?php editBudget($trip); ?>
                     </div>
                     <div class="row collapse" id="organizeLuggageDiv" aria-expanded="false">
                         <?php editLuggage($id); ?>
@@ -218,8 +215,8 @@ function editLuggage($trip_id) {
     getLuggageTabPanels($trip_id);
 }
 
-function editBudget() {
-//    getNightsStayingAndPeopleTravellingDiv();
+function editBudget($trip) {
+    getNightsStayingAndPeopleTravellingDiv($trip);
 //    getBudgetNavigationTabs();
 //    getBudgetTabPanels();
 }
@@ -295,5 +292,26 @@ function getLuggageTabPanels($trip_id) {
         }
         ?>
     </div>
+<?php
+}
+
+function getNightsStayingAndPeopleTravellingDiv($trip) {
+    ?>
+
+    <input class="form-control" autocomplete="off" type="number"
+           placeholder="Брой пътници" id="touristsCount" name="touristsCount" min="1" step="1" value="<?= $trip['tourists']; ?>">
+    <input class="form-control" autocomplete="off" type="number"
+           placeholder="Брой нощувки" id="nightsCount" name="nightsCount" min="1" step="1" value="<?= $trip['nights']; ?>">
+    <div class="form-group">
+        <button type="button" class="btn btn-block btn-info" id="budgetCountSave" onclick="disableCountsEnableBudget()">Запази</button>
+    </div>
+    <div class="row" style="height: 15pt;"></div>
+    <div class="alert alert-info collapse alert-dismissible" id="touristsCountErrorMessage">
+        Моля, въведете положителна числова стойност за 'Брой пътници'!
+    </div>
+    <div class="alert alert-info collapse alert-dismissible" id="nightsCountErrorMessage">
+        Моля, въведете положителна числова стойност за 'Брой нощувки'!
+    </div>
+    <div class="row" style="height: 15pt;"></div>
 <?php
 }
