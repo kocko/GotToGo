@@ -1,5 +1,5 @@
 === GotToGo Login Form ===
-Contributors: kocko, stefi
+Contributors: stefi
 Tags: gottogo, loginform
 Requires at least: 3.1
 Tested up to: 4.1

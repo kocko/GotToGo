@@ -219,7 +219,7 @@
     function getLuggageItemsNavigationTabs() {
         require_once '../utils/luggage_utils.php';
 ?>
-    <ul class="nav nav-tabs" role="tablist">
+    <ul class="nav nav-tabs nav-justified" role="tablist">
     <?php
         $categories = getLuggageItemsCategories();
         foreach ($categories as $category) {
@@ -267,7 +267,7 @@
         require_once '../utils/budget_utils.php';
     ?>
         <div id="budgetOrganizer" style="display:none;">
-            <ul class="nav nav-tabs" role="tablist">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
                 <?php
                 $categories = getBudgetCategories();
                 foreach ($categories as $category) {

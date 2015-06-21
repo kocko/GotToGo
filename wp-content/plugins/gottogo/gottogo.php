@@ -4,7 +4,7 @@ Plugin Name: GotToGo login/registration/forgotten-password form
 Plugin URI: http://gottogo.com
 Description: The GotToGo plugin, which contains the forms for registration, login and forgotten password
 Version: 1.0
-Author: Konstantin Yovkov
+Author: Stefaniya Talambazova
 Author URI: http://w3guy.com
 */
 

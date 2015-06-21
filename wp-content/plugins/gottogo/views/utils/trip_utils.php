@@ -73,3 +73,39 @@ function makeBudgetItemsCopy($old_trip_id, $new_trip_id) {
         }
     }
 }
+
+function getTripsForCurrentUserWithId($user_id, $trip_id) {
+    $trips = getTripsForCurrentUser($user_id);
+    if (count($trips) > 0) {
+        foreach ($trips as $trip) {
+            if ($trip['id'] == $trip_id) {
+                return $trip;
+            }
+        }
+    }
+    return -1;
+}
+
+function getTripItemsForTripWithId($trip_id) {
+    $items_query = sprintf("select category, group_concat(DISTINCT name SEPARATOR ',') AS items from trip_item where trip_id = " . $trip_id . " group by category");
+//    $items_query = sprintf("SELECT name as name, category as category FROM trip_item where trip_id = " . $trip_id);
+    $result = mysql_query($items_query, $GLOBALS['connection']);
+    $rows = array();
+    while($r = mysql_fetch_assoc($result)) {
+        $rows[] = array('items' => $r['items'], 'category' => $r['category']);
+    }
+    return $rows;
+}
+
+function getTripBudgetForTripWithId($trip_id) {
+    $budget_query = sprintf("SELECT name as name, category as category, cost as cost, shared as shared FROM trip_budget where trip_id = " . $trip_id);
+    $result = mysql_query($budget_query, $GLOBALS['connection']);
+    $rows = array();
+    while($r = mysql_fetch_assoc($result)) {
+        $rows[] = array('name' => $r['name'],
+                        'category' => $r['category'],
+                        'cost' => $r['cost'],
+                        'shared' => $r['shared']);;
+    }
+    return $rows;
+}
