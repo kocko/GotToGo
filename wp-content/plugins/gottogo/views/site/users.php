@@ -22,7 +22,7 @@ include_once '../utils/user_utils.php';
 </script>
 <div class="row" id="editProfile" aria-expanded="false" aria-controls="editProfileCollapse" >
     <div class="col-xs-12 col-md-6">
-        <div class="well" style="width: 1330px; margin-left: 30%; margin-right: auto;">
+        <div class="well" style="width: 1080px; margin-left: 20%; margin-right: auto;">
             <div align="center">
                 <h1 style="font-size: 3em;">Потребители</h1>
                 <div style="width: 90%; font-size: 18px;">
