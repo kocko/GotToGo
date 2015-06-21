@@ -72,7 +72,7 @@ function register_action() {
             die ("Could not enter data: " . mysql_error());
         } else {
             wp_mail($email, "Successful registration in Gottoto", "Hello, " . $name . "!" , null, null);
-            echo "Success";
+            echo "Вие се регистрирахте успешно!";
         }
     }
 }

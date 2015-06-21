@@ -172,7 +172,7 @@
                     Моите пътувания
                 </a>
             </div>
-            <div class="alert alert-info collapse alert-dismissible" id="tripErrorMessage">
+            <div class="alert alert-error collapse alert-dismissible" id="tripErrorMessage">
                 Възникна грешка! Моля, опитайте отново!
             </div>
             <form class="form-inline" action="" method="post" id="newTripDataForm">

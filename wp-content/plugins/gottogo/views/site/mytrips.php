@@ -67,7 +67,9 @@
     $trips = getTripsForCurrentUser($_SESSION['user']['id']);
     if (empty($trips)) {
     ?>
-        Все още нямате създадени пътувания.
+        <div align="center">
+            <h1 style="font-size: 18px;">Все още нямате създадени пътувания!</h1>
+        </div>
     <?php
     } else {
         ?>
@@ -115,6 +117,6 @@
         <?php
     }
 ?>
-            </div>
+        </div>
     </div>
 </div>
