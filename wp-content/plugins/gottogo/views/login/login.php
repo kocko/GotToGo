@@ -48,23 +48,24 @@ function getLoginForm() {
 
 function login_action() {
     if (isset($_POST['login_action'])) {
+        $db = new Database();
+        $connection = $db->getConnection();
         $email = sanitize_text_field($_POST['login_email']);
         $password = sanitize_text_field($_POST['login_password']);
 
         $passwordSalted = md5($password);
 
-        $query = sprintf("SELECT * FROM users WHERE email='%s' AND password='%s'",
-                         mysql_real_escape_string($email), mysql_real_escape_string($passwordSalted));
+        $query = sprintf("SELECT * FROM users WHERE email='%s' AND password='%s'", $email, $passwordSalted);
 
-        $result = mysql_query($query);
+        $result = mysqli_query($connection, $query);
 
         if (!$result) {
-            $message = 'Невалидна заявка: ' . mysql_error() . "\n";
+            $message = 'Невалидна заявка: ' . mysqli_error($connection) . "\n";
             $message .= 'Цялата заявка: ' . $query;
             die($message);
         }
 
-        $row = mysql_fetch_assoc($result);
+        $row = mysqli_fetch_assoc($result);
         if ($row['fullname']) {
             session_start();
             $_SESSION['user'] = $row;

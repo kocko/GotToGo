@@ -8,7 +8,9 @@ require_once '../../../../../wp-load.php';
 require_once '../utils/luggage_utils.php';
 
 function updateTrip() {
-    $user_id = $_SESSION['user']['id'];
+    $database = new Database();
+    $connection = $database->getConnection();
+
     $trip_id = $_POST['tripId'];
     $tourists_count = "1";
     if ($_POST['touristsCount']) {
@@ -18,9 +20,8 @@ function updateTrip() {
     if ($_POST['nightsCount']) {
         $nights_count = sanitize_text_field($_POST['nightsCount']);
     }
-    $query = sprintf("UPDATE trip SET tourists = " . mysql_real_escape_string($tourists_count) . ",
-                                      nights = " . mysql_real_escape_string($nights_count) . " WHERE id = " . $trip_id);
-    $result = mysql_query($query, $GLOBALS['connection']);
+    $query = sprintf("UPDATE trip SET tourists = " . $tourists_count . ", nights = " . $nights_count . " WHERE id = " . $trip_id);
+    $result = mysqli_query($connection, $query);
 
     if (!$result) {
         return false;
@@ -28,7 +29,7 @@ function updateTrip() {
 
     if ($_POST['selectedLuggageItems']) {
         $deleteQuery = "DELETE FROM trip_item where trip_id = " . $trip_id;
-        $result = mysql_query($deleteQuery, $GLOBALS['connection']);
+        $result = mysqli_query($connection, $deleteQuery);
 
         if (!$result) {
             return false;
@@ -43,7 +44,7 @@ function updateTrip() {
         }
 
         $items_query = rtrim($items_query, ',');
-        $result = mysql_query($items_query, $GLOBALS['connection']);
+        $result = mysqli_query($connection, $items_query);
 
         if (!$result) {
             return false;

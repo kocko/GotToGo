@@ -1,9 +1,14 @@
 <?php
 
 function getTripsForCurrentUser($userId) {
-    $result = mysql_query("SELECT id as tripId, destination as destination, tourists as tourists, nights as nights FROM trip WHERE user_id = ". $userId);
+    $database = new Database();
+    $connection = $database->getConnection();
+
+    $query = "SELECT id as tripId, destination as destination, tourists as tourists, nights as nights FROM trip WHERE user_id = ". $userId;
+    $result = mysqli_query($connection, $query);
+
     $rows = array();
-    while($r = mysql_fetch_assoc($result)) {
+    while($r = mysqli_fetch_assoc($result)) {
         $rows[] = array('destination' => $r['destination'], 'id' => $r['tripId'],
                         'tourists' => $r['tourists'], 'nights' => $r['nights']);
     }
@@ -17,10 +22,13 @@ function copyTrip($trip_id) {
 }
 
 function makeTripCopy($trip_id) {
+    $database = new Database();
+    $connection = $database->getConnection();
+
     $query = sprintf("SELECT user_id as user_id, destination as destination, tourists as tourists, nights as nights FROM trip WHERE id = '%d'", $trip_id);
-    $result = mysql_query($query, $GLOBALS['connection']);
+    $result = mysqli_query($connection, $query);
     $rows = array();
-    while($r = mysql_fetch_assoc($result)) {
+    while($r = mysqli_fetch_assoc($result)) {
         $rows[] = array('destination' => $r['destination'], 'user_id' => $r['user_id'], 'tourists' => $r['tourists'], 'nights' => $r['nights']);
     }
     $destination = $rows[0]['destination'];
@@ -28,19 +36,22 @@ function makeTripCopy($trip_id) {
     $tourists = $rows[0]['tourists'];
     $nights = $rows[0]['nights'];
     $newTripQuery = sprintf("INSERT INTO trip(user_id, destination, tourists, nights) values ('%s', '%s', '%s', '%s')",
-                                mysql_real_escape_string($user_id),
-                                mysql_real_escape_string($destination),
-                                mysql_real_escape_string($tourists),
-                                mysql_real_escape_string($nights));
-    mysql_query($newTripQuery, $GLOBALS['connection']);
-    return mysql_insert_id();
+                                mysqli_real_escape_string($connection, $user_id),
+                                mysqli_real_escape_string($connection, $destination),
+                                mysqli_real_escape_string($connection, $tourists),
+                                mysqli_real_escape_string($connection, $nights));
+    mysqli_query($connection, $newTripQuery);
+    return mysqli_insert_id($connection);
 }
 
 function makeTripItemsCopy($old_trip_id, $new_trip_id) {
+    $database = new Database();
+    $connection = $database->getConnection();
+
     $items_query = sprintf("SELECT name as name, category as category FROM trip_item where trip_id = " . $old_trip_id);
-    $result = mysql_query($items_query, $GLOBALS['connection']);
+    $result = mysqli_query($connection, $items_query);
     $rows = array();
-    while($r = mysql_fetch_assoc($result)) {
+    while($r = mysqli_fetch_assoc($result)) {
         $rows[] = array('name' => $r['name'], 'category' => $r['category']);
     }
     if ($rows) {
@@ -49,7 +60,7 @@ function makeTripItemsCopy($old_trip_id, $new_trip_id) {
             $insert_query .= "(" . $new_trip_id . ", '" . $item['name'] . "', '" . $item['category'] . "'),";
         }
         $insert_query = rtrim($insert_query, ',');
-        $result = mysql_query($insert_query, $GLOBALS['connection']);
+        $result = mysqli_query($connection, $insert_query);
         if (!$result) {
             die ("error in database connection");
         }
@@ -57,10 +68,13 @@ function makeTripItemsCopy($old_trip_id, $new_trip_id) {
 }
 
 function makeBudgetItemsCopy($old_trip_id, $new_trip_id) {
+    $database = new Database();
+    $connection = $database->getConnection();
+
     $items_query = sprintf("SELECT name as name, category as category, cost as cost, shared as shared FROM trip_budget where trip_id = " . $old_trip_id);
-    $result = mysql_query($items_query, $GLOBALS['connection']);
+    $result = mysqli_query($connection, $items_query);
     $rows = array();
-    while($r = mysql_fetch_assoc($result)) {
+    while($r = mysqli_fetch_assoc($result)) {
         $rows[] = array('name' => $r['name'],
                         'category' => $r['category'],
                         'cost' => $r['cost'],
@@ -72,7 +86,7 @@ function makeBudgetItemsCopy($old_trip_id, $new_trip_id) {
             $insert_query .= "(" . $new_trip_id . ", '" . $item['name'] . "', '" . $item['category'] . "', '" . $item['cost'] . "', '" . $item['shared'] . "'),";
         }
         $insert_query = rtrim($insert_query, ',');
-        $result = mysql_query($insert_query, $GLOBALS['connection']);
+        $result = mysqli_query($connection, $insert_query);
         if (!$result) {
             die ("error in database connection");
         }
@@ -92,20 +106,26 @@ function getTripsForCurrentUserWithId($user_id, $trip_id) {
 }
 
 function getTripItemsForTripWithId($trip_id) {
+    $database = new Database();
+    $connection = $database->getConnection();
+
     $items_query = sprintf("select category, group_concat(DISTINCT name SEPARATOR ',') AS items from trip_item where trip_id = " . $trip_id . " group by category");
-    $result = mysql_query($items_query, $GLOBALS['connection']);
+    $result = mysqli_query($connection, $items_query);
     $rows = array();
-    while($r = mysql_fetch_assoc($result)) {
+    while($r = mysqli_fetch_assoc($result)) {
         $rows[] = array('items' => $r['items'], 'category' => $r['category']);
     }
     return $rows;
 }
 
 function getTripBudgetForTripWithId($trip_id) {
+    $database = new Database();
+    $connection = $database->getConnection();
+
     $budget_query = sprintf("SELECT name as name, category as category, cost as cost, shared as shared FROM trip_budget where trip_id = " . $trip_id);
-    $result = mysql_query($budget_query, $GLOBALS['connection']);
+    $result = mysqli_query($connection, $budget_query);
     $rows = array();
-    while($r = mysql_fetch_assoc($result)) {
+    while($r = mysqli_fetch_assoc($result)) {
         $rows[] = array('name' => $r['name'],
                         'category' => $r['category'],
                         'cost' => $r['cost'],

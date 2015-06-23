@@ -7,6 +7,7 @@ require_once '../../../../../wp-load.php';
 
 function update_user() {
     if (isset($_POST['user_id'])) {
+        $database = new Database();
         $user_id = sanitize_text_field($_POST['user_id']);
         $name = sanitize_text_field($_POST['fullname']);
         $password = sanitize_text_field($_POST['password']);
@@ -15,9 +16,9 @@ function update_user() {
 
         $sql = "UPDATE users SET password = '%s', fullname = '%s' WHERE id = " . $user_id;
 
-        $query = sprintf($sql, mysql_real_escape_string($passwordSalted), mysql_real_escape_string($name));
+        $query = sprintf($sql, $passwordSalted, $name);
 
-        $result = mysql_query($query, $GLOBALS['connection']);
+        $result = mysqli_query($database->getConnection(), $query);
         if ($result) {
             $_SESSION['user']['fullname'] = $name;
             return 1;

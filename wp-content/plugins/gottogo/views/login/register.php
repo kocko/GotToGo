@@ -57,19 +57,19 @@ function getRegisterForm() {
 
 function register_action() {
     if (isset($_POST['register_action'])) {
+        $db = new Database();
+        $connection = $db->getConnection();
         $name = sanitize_text_field($_POST['register_fullname']);
         $email = sanitize_text_field($_POST['register_email']);
         $password = sanitize_text_field($_POST['register_password']);
 
         $passwordSalted = md5($password);
 
-        $query = sprintf("INSERT INTO users (email, password, fullname) values ('%s','%s', '%s')",
-                         mysql_real_escape_string($email), mysql_real_escape_string($passwordSalted), mysql_real_escape_string($name));
+        $query = sprintf("INSERT INTO users (email, password, fullname) values ('%s','%s', '%s')", $email, $passwordSalted, $name);
 
-
-        $result = mysql_query($query, $GLOBALS['connection']);
+        $result = mysqli_query($connection, $query);
         if (!$result) {
-            die ("Could not enter data: " . mysql_error());
+            die ("Could not enter data: " . mysqli_error($connection));
         } else {
             wp_mail($email, "Successful registration in Gottoto", "Hello, " . $name . "!" , null, null);
             echo "Вие се регистрирахте успешно!";
