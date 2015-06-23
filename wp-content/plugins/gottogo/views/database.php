@@ -1,14 +1,16 @@
 <?php
+class Database {
+    function getConnection() {
+        $host = "localhost";
+        $username = "novtgu8m";
+        $password = "Hoffmann123@";
+        $db_name = "novtgu8m_trips";
 
-  $host = "localhost"; 
-  $username = "novtgu8m"; 
-  $password = "Hoffmann123@";
-  $db_name = "novtgu8m_trips";
+        $connection = mysqli_connect("$host", "$username", "$password", "$db_name") or die("cannot connect");
 
-  $connection = mysql_connect("$host", "$username", "$password") or die("cannot connect");
-
-  if (!$connection) {
-      die('Could not connect: ' . mysql_error());
-  }
-
-  mysql_select_db("$db_name") or die("cannot select DB");
+        if (mysqli_connect_errno()) {
+            die('Could not connect: ' . mysqli_error($connection));
+        }
+        return $connection;
+    }
+}

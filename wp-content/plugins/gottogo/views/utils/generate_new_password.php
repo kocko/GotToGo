@@ -4,15 +4,22 @@ require_once '../database.php';
 
 require_once '../../../../../wp-load.php';
 
-function check_email_and_send_new_password($email) {
+function check_email_and_send_new_password() {
+    $database = new Database();
+    $connection =  $database->getConnection();
+
+    $email = mysqli_real_escape_string($connection, $_POST['forgotten_password_email']);
+
     $newPassword = generate_new_password();
 
     $newPasswordSalted = md5($newPassword);
 
     $updateQuery = sprintf("UPDATE users set password = '%s' WHERE email = '%s'",
-                            mysql_real_escape_string($newPasswordSalted), mysql_real_escape_string($email));
+                            mysqli_real_escape_string($connection, $newPasswordSalted),
+                            mysqli_real_escape_string($connection, $email));
 
-    $result = mysql_query($updateQuery, $GLOBALS['connection']);
+    $result = mysqli_query($connection, $updateQuery);
+
     if ($result) {
         wp_mail($email, "New password for Gottoto", "Your new password is: " . $newPassword , null, null);
         return "Success";
@@ -31,6 +38,4 @@ function generate_new_password($length = 10) {
     return $randomString;
 }
 
-$email = mysql_real_escape_string($_POST['forgotten_password_email']);
-
-echo check_email_and_send_new_password($email);
+echo check_email_and_send_new_password();

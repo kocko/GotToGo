@@ -5,11 +5,12 @@ require_once '../database.php';
 require_once '../../../../../wp-load.php';
 
 function getBudgetCategories() {
+    $database = new Database();
     $query = "SELECT DISTINCT category from budget_planning order by category";
-    $result = mysql_query($query, $GLOBALS['connection']);
+    $result = mysqli_query($database->getConnection(), $query);
 
     $ret = array();
-    while($r = mysql_fetch_assoc($result)) {
+    while($r = mysqli_fetch_assoc($result)) {
         $ret[] = $r['category'];
     }
 
@@ -17,12 +18,15 @@ function getBudgetCategories() {
 }
 
 function getBudgetCostsPerCategory($category) {
-    $cat = mysql_real_escape_string($category);
+    $database = new Database();
+    $connection = $database->getConnection();
+
+    $cat = mysqli_real_escape_string($connection, $category);
     $query = sprintf("SELECT name, shared FROM budget_planning WHERE category='%s' order by id", $cat);
-    $result = mysql_query($query, $GLOBALS['connection']);
+    $result = mysqli_query($connection, $query);
 
     $ret = array();
-    while ($r = mysql_fetch_assoc($result)) {
+    while ($r = mysqli_fetch_assoc($result)) {
         $ret[] = array('name' => $r['name'], 'shared' => $r['shared']);
     }
 

@@ -8,9 +8,10 @@ require_once '../../../../../wp-load.php';
 
 function deleteUser() {
     if ($_POST['userId']) {
+        $database = new Database();
         $user_id = $_POST['userId'];
-        $query = sprintf("DELETE FROM `users` where `id` = %s", mysql_real_escape_string($user_id));
-        $result = mysql_query($query);
+        $query = sprintf("DELETE FROM `users` where `id` = %s", $user_id);
+        $result = mysqli_query($database->getConnection(), $query);
         return $result ? 1 : 0;
     }
     return 0;

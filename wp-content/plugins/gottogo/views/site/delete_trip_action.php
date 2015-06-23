@@ -8,9 +8,10 @@ require_once '../../../../../wp-load.php';
 
 function deleteTrip() {
     if ($_POST['tripId']) {
+        $database = new Database();
         $trip_id = $_POST['tripId'];
-        $query = sprintf("DELETE FROM trip where id = '%s'", mysql_real_escape_string($trip_id));
-        $result = mysql_query($query);
+        $query = sprintf("DELETE FROM trip where id = '%s'", $trip_id);
+        $result = mysqli_query($database->getConnection(), $query);
         return $result ? 1 : 0;
     }
     return 0;

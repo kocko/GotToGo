@@ -2,18 +2,19 @@
 
 require_once '../database.php';
 
-function checkEmail($email) {
-    $email = mysql_real_escape_string($_POST['register_email']);
+function checkEmail() {
+    $database = new Database();
+    $connection = $database->getConnection();
 
-    $query = sprintf("SELECT count(email) as total FROM users WHERE email='%s'", mysql_real_escape_string($email));
+    $email = mysqli_real_escape_string($connection, $_POST['register_email']);
 
-    $result = mysql_query($query, $GLOBALS['connection']);
+    $query = sprintf("SELECT count(email) as total FROM users WHERE email='%s'", $email);
 
-    $row = mysql_fetch_assoc($result);
+    $result = mysqli_query($connection, $query);
+
+    $row = mysqli_fetch_assoc($result);
 
     return $row['total'] == 0 ? 0 : 1;
 }
 
-$email = mysql_real_escape_string($_POST['register_email']);
-
-echo checkEmail($email);
+echo checkEmail();

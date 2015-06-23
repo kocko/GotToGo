@@ -8,6 +8,9 @@ require_once '../../../../../wp-load.php';
 require_once '../utils/luggage_utils.php';
 
 function createNewTrip() {
+    $database = new Database();
+    $connection = $database->getConnection();
+
     $user_id = $_SESSION['user']['id'];
     $destination = sanitize_text_field($_POST['destination']);
     $tourists_count = "1";
@@ -18,17 +21,11 @@ function createNewTrip() {
     if ($_POST['nightsCount']) {
         $nights_count = sanitize_text_field($_POST['nightsCount']);
     }
-    $query = sprintf("INSERT INTO trip (user_id, destination, tourists, nights) values ('%s','%s', '%s', '%s');",
-        mysql_real_escape_string($user_id), mysql_real_escape_string($destination),
-        mysql_real_escape_string($tourists_count), mysql_real_escape_string($nights_count));
+    $query = sprintf("INSERT INTO trip (user_id, destination, tourists, nights) values ('%s','%s', '%s', '%s');", $user_id, $destination,  $tourists_count, $nights_count);
 
-    $result = mysql_query($query, $GLOBALS['connection']);
+    mysqli_query($connection, $query);
 
-    if (!$result) {
-        return false;
-    }
-
-    $trip_id = mysql_insert_id();
+    $trip_id = mysqli_insert_id($connection);
     $items_query = "INSERT INTO trip_item(trip_id, name, category) VALUES ";
 
     if ($_POST['selectedLuggageItems']) {
@@ -40,7 +37,7 @@ function createNewTrip() {
         }
 
         $items_query = rtrim($items_query, ',');
-        $result = mysql_query($items_query, $GLOBALS['connection']);
+        $result = mysqli_query($database->getConnection(), $items_query);
 
         if (!$result) {
             return false;
@@ -59,7 +56,7 @@ function createNewTrip() {
         }
 
         $budget_query = rtrim($budget_query , ',');
-        $result = mysql_query($budget_query , $GLOBALS['connection']);
+        $result = mysqli_query($database->getConnection(), $budget_query);
 
         if (!$result) {
             return false;

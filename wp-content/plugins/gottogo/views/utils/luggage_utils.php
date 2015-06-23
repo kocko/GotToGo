@@ -5,11 +5,14 @@ require_once '../database.php';
 require_once '../../../../../wp-load.php';
 
 function getLuggageItemsCategories() {
+    $database = new Database();
+    $connection = $database->getConnection();
+
     $query = "SELECT DISTINCT category from luggage_item order by category";
-    $result = mysql_query($query, $GLOBALS['connection']);
+    $result = mysqli_query($connection, $query);
 
     $ret = array();
-    while($r = mysql_fetch_assoc($result)) {
+    while($r = mysqli_fetch_assoc($result)) {
         $ret[] = $r['category'];
     }
 
@@ -17,12 +20,15 @@ function getLuggageItemsCategories() {
 }
 
 function getLuggageItemsPerCategory($category) {
-    $cat = mysql_real_escape_string($category);
+    $database = new Database();
+    $connection = $database->getConnection();
+
+    $cat = mysqli_real_escape_string($connection, $category);
     $query = sprintf("SELECT DISTINCT name FROM luggage_item WHERE category='%s' order by id", $cat);
-    $result = mysql_query($query, $GLOBALS['connection']);
+    $result = mysqli_query($connection, $query);
 
     $ret = array();
-    while ($r = mysql_fetch_assoc($result)) {
+    while ($r = mysqli_fetch_assoc($result)) {
         $ret[] = $r['name'];
     }
 
