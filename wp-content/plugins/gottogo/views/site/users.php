@@ -35,7 +35,9 @@ include_once '../utils/user_utils.php';
                 $users = getAllRegisteredUsers();
                 if (empty($users)) {
                     ?>
-                    Няма регистрирани потребители.
+                    <div align="center">
+                        <h1 style="font-size: 18px;">Няма регистрирани потребители!</h1>
+                    </div>
                 <?php
                 } else {
                     ?>
