@@ -51,24 +51,31 @@ function updateTrip() {
         }
     }
 
-//    $budget_query = "INSERT into trip_budget(trip_id, name, category, cost, shared) VALUES ";
-//    if ($_POST['budgetItems']) {
-//        $postedBudgetItems = $_POST['budgetItems'];
-//        foreach ($postedBudgetItems as $entry) {
-//            $name = $entry[0];
-//            $cost = $entry[1];
-//            $category = $entry[2];
-//            $shared = $entry[3];
-//            $budget_query .= "(" . $trip_id . ", '" . $name . "', '" . $category . "', '" . $cost . "', '" . $shared . "'),";
-//        }
-//
-//        $budget_query = rtrim($budget_query , ',');
-//        $result = mysql_query($budget_query , $GLOBALS['connection']);
-//
-//        if (!$result) {
-//            return false;
-//        }
-//    }
+    if ($_POST['budgetItems']) {
+        $deleteQuery = "DELETE FROM trip_budget where trip_id = " . $trip_id;
+        $result = mysqli_query($connection, $deleteQuery);
+
+        if (!$result) {
+            return false;
+        }
+
+        $postedBudgetItems = $_POST['budgetItems'];
+        $budget_query = "INSERT into trip_budget(trip_id, name, category, cost, shared) VALUES ";
+        foreach ($postedBudgetItems as $entry) {
+            $name = $entry[0];
+            $cost = $entry[1];
+            $category = $entry[2];
+            $shared = $entry[3];
+            $budget_query .= "(" . $trip_id . ", '" . $name . "', '" . $category . "', '" . $cost . "', '" . $shared . "'),";
+        }
+
+        $budget_query = rtrim($budget_query , ',');
+        $result = mysqli_query($connection, $budget_query);
+
+        if (!$result) {
+            return false;
+        }
+    }
     return true;
 }
 
