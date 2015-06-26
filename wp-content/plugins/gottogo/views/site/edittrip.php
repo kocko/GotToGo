@@ -103,31 +103,30 @@
         for (var i = 0; i < all_items.length; i++) {
             if (all_items[i].name.lastIndexOf('budget_') != 0 && all_items[i].name.lastIndexOf('addBdg') != 0) {
                 selected_luggage_items.push([all_items[i].name, all_items[i].value]);
+            } else if (all_items[i].name.lastIndexOf('budget_') === 0 && all_items[i].value != '') {
+                var split = all_items[i].name.split("_");
+                var name = split[1];
+                var shared = split[2];
+                var category = split[3];
+                var cost = all_items[i].value;
+                budget_items.push([name, cost, category, shared]);
             }
-//                else if (all_items[i].name.lastIndexOf('budget_') === 0 && all_items[i].value != '') {
-//                    var split = all_items[i].name.split("_");
-//                    var name = split[1];
-//                    var shared = split[2];
-//                    var category = split[3];
-//                    var cost = all_items[i].value;
-//                    budget_items.push([name, cost, category, shared]);
-//                }
         }
 
-//            var additionalBudgetItems = [];
-//            for (var i = 0; i < all_items.length; i++) {
-//                if (all_items[i].name.lastIndexOf('addBdg') === 0) {
-//                    additionalBudgetItems.push(all_items[i]);
-//                }
-//            }
-//            for (var i = 0; i < additionalBudgetItems.length; i += 2) {
-//                var label = additionalBudgetItems[i].value;
-//                var cat = additionalBudgetItems[i].id;
-//                var value = additionalBudgetItems[i + 1].value;
-//                if (label != '' && value != '') {
-//                    budget_items.push([label, value, cat, "1"]);
-//                }
-//            }
+        var additionalBudgetItems = [];
+        for (var i = 0; i < all_items.length; i++) {
+            if (all_items[i].name.lastIndexOf('addBdg') === 0) {
+                additionalBudgetItems.push(all_items[i]);
+            }
+        }
+        for (var i = 0; i < additionalBudgetItems.length; i += 2) {
+            var label = additionalBudgetItems[i].value;
+            var cat = additionalBudgetItems[i].id;
+            var value = additionalBudgetItems[i + 1].value;
+            if (label != '' && value != '') {
+                budget_items.push([label, value, cat, "1"]);
+            }
+        }
 
         var touristsCount = jQuery("#touristsCount").val();
         var nightsCount = jQuery("#nightsCount").val();
@@ -135,8 +134,8 @@
         jQuery.post("<?= get_site_url(); ?>/wp-content/plugins/gottogo/views/site/update_trip_action.php",
             {
                 tripId : tripId, selectedLuggageItems: selected_luggage_items,
-                touristsCount: touristsCount, nightsCount : nightsCount
-//                    budgetItems : budget_items
+                touristsCount: touristsCount, nightsCount : nightsCount,
+                budgetItems : budget_items
             },
             function (result) {
                 if (result == true) {
