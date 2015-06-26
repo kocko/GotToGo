@@ -101,15 +101,17 @@
         var all_items = jQuery(":text");
         var budget_items = [];
         for (var i = 0; i < all_items.length; i++) {
-            if (all_items[i].name.lastIndexOf('budget_') != 0 && all_items[i].name.lastIndexOf('addBdg') != 0) {
-                selected_luggage_items.push([all_items[i].name, all_items[i].value]);
-            } else if (all_items[i].name.lastIndexOf('budget_') === 0 && all_items[i].value != '') {
-                var split = all_items[i].name.split("_");
-                var name = split[1];
-                var shared = split[2];
-                var category = split[3];
-                var cost = all_items[i].value;
-                budget_items.push([name, cost, category, shared]);
+            if (all_items[i] !== '') {
+                if (all_items[i].name.lastIndexOf('budget_') != 0 && all_items[i].name.lastIndexOf('addBdg') != 0) {
+                    selected_luggage_items.push([all_items[i].name, all_items[i].value]);
+                } else if (all_items[i].name.lastIndexOf('budget_') === 0) {
+                    var split = all_items[i].name.split("_");
+                    var name = split[1];
+                    var shared = split[2];
+                    var category = split[3];
+                    var cost = all_items[i].value;
+                    budget_items.push([name, cost, category, shared]);
+                }
             }
         }
 
