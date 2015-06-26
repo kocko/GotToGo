@@ -13,9 +13,14 @@
     });
 
     function disableDestinationEnableOrganizer() {
-        jQuery("#destination").prop('readonly', true);
-        jQuery("#organizer").show();
-        jQuery("#new_trip_action").show();
+        if (!validateDestination()) {
+            jQuery("#destination").prop('readonly', true);
+            jQuery("#destinationRequiredErrorMessage").hide();
+            jQuery("#organizer").show();
+            jQuery("#new_trip_action").show();
+        } else {
+            jQuery("#destinationRequiredErrorMessage").show();
+        }
     }
 
     function disableCountsEnableBudget() {
@@ -81,13 +86,7 @@
     }
 
     function validateDestination() {
-        //todo
-        if (jQuery("#destination").val() == "") {
-            jQuery("#destination").validate('validate');
-            return true;
-        } else {
-            return false;
-        }
+        return jQuery("#destination").val().length === 0;
     }
 
     jQuery(function(){
@@ -172,6 +171,9 @@
                     Моите пътувания
                 </a>
             </div>
+            <div class="alert alert-info collapse alert-dismissible" id="destinationRequiredErrorMessage">
+                Моля, въведете дестинация!
+            </div>
             <div class="alert alert-info collapse alert-dismissible" id="tripErrorMessage">
                 Възникна грешка! Моля, опитайте отново!
             </div>
@@ -179,7 +181,7 @@
                 <div class="row" style="margin-left: 360px;">
                     <input class="typeahead form-control" type="text" autocomplete="off"
                            placeholder="Въведете дестинация: City, Country"
-                           id="destination" name="destination" value="">
+                           id="destination" name="destination" onblur="validateDestination()">
                     <button type="button" class="btn btn-info"
                             onclick="disableDestinationEnableOrganizer()">Запази</button>
                 </div>
