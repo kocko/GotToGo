@@ -353,29 +353,59 @@ function getBudgetTabPanels($trip) {
                 <?php
                 $items = getBudgetCostsPerCategory($category);
                 $list = null;
-                foreach ($currentTripBudgetItems as $selectedItems) {
-                    if (strcmp($selectedItems['category'], $category) == 0) {
-                        $list[] = $selectedItems['name'];
+                foreach ($currentTripBudgetItems as $selectedItem) {
+                    if (strcmp($selectedItem['category'], $category) == 0) {
+                        $list[] = $selectedItem;
                     }
                 }
 
                 foreach ($items as $item) {
+                    $foundValue = -1;
+                    $index = -1;
+                    for ($i = 0; $i < count($list); $i++) {
+                        if (strcmp($list[$i]['name'], $item['name']) == 0) {
+                            $foundValue = $list[$i]['cost'];
+                            $index = $i;
+                        }
+                    }
+                    if ($index > -1) {
+                        unset($list[$index]);
+                    }
                     ?>
                     <tr>
-                        <td width="30%;" style="border: none !important;"><label for="<?= $item['name']; ?>"><?= $item['name']; ?></label></td>
-                        <td style="border: none !important;"><input id="<?= $item['name']; ?>" name="budget_<?= $item['name']; ?>_<?= $item['shared'];?>_<?= $category; ?>"
-                           class="form-control" pattern="^\d+([.,]\d+)?$"
-                           onblur="validateBudgetCost(this)">
-                    <?php
-                    echo $item['shared'] == 1 ? '(общо)' : '(на човек)';
-                    ?></td>
+                        <td width="30%;" style="border: none !important;">
+                            <label for="<?= $item['name']; ?>"><?= $item['name']; ?></label>
+                        </td>
+                        <td style="border: none !important;">
+                            <input id="<?= $item['name']; ?>" name="budget_<?= $item['name']; ?>_<?= $item['shared'];?>_<?= $category; ?>"
+                                   class="form-control" pattern="^\d+([.,]\d+)?$" onblur="validateBudgetCost(this)" value="<?php if ($foundValue != -1) echo $foundValue; ?>">
+                        <?php
+                        echo $item['shared'] == 1 ? '(общо)' : '(на човек)';
+                        ?>
+                        </td>
                     </tr>
-
                 <?php
                 }
                 ?>
                 </table>
-                <div id="addMoreBudgetItems_<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>"></div>
+                <?php
+                ?>
+                <div id="addMoreBudgetItems_<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>">
+                    <?php
+                    if (count($list) > 0) {
+                        foreach ($list as $y) {
+                            echo '<div id="addBdgGroup">' .
+                                '   <input class="form-control" type="text" name="addBdgTitle_' . join("_", explode(" ", mb_strtolower($category, "UTF-8")))  . '" id="' . $category . '" value="' .$y['name']. '">' .
+                                '   <input class="form-control" type="text" name="addBdgCost_' . $category . '" placeholder="Стойност" pattern="^\d+([.,]\d+)?$" value="'. $y['cost'] .'">' .
+                                '   (общо)' .
+                                '   <button type="button" class="btn btn-danger btn-xs id="removeBudgetItemsButton_' . $category . '" title="Премахни" onclick="removePlanItem(this)">' .
+                                '       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>' .
+                                '   </button><br />' .
+                                '</div>';
+                        }
+                    }
+                    ?>
+                </div>
                 <button type="button" class="btn btn-info btn-xs" id="addMoreLuggageItemsButton_<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>"
                         title="Добави" onclick="addBudgetItem('<?= join("_", explode(" ", mb_strtolower($category, "UTF-8"))); ?>', '<?= $category; ?>')">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
