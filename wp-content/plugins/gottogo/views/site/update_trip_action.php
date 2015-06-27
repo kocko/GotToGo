@@ -29,11 +29,7 @@ function updateTrip() {
 
     if ($_POST['selectedLuggageItems']) {
         $deleteQuery = "DELETE FROM trip_item where trip_id = " . $trip_id;
-        $result = mysqli_query($connection, $deleteQuery);
-
-        if (!$result) {
-            return false;
-        }
+        mysqli_query($connection, $deleteQuery);
 
         $postedItems = $_POST['selectedLuggageItems'];
         $items_query = "INSERT INTO trip_item(trip_id, name, category) VALUES ";
@@ -53,11 +49,7 @@ function updateTrip() {
 
     if ($_POST['budgetItems']) {
         $deleteQuery = "DELETE FROM trip_budget where trip_id = " . $trip_id;
-        $result = mysqli_query($connection, $deleteQuery);
-
-        if (!$result) {
-            return false;
-        }
+        mysqli_query($connection, $deleteQuery);
 
         $postedBudgetItems = $_POST['budgetItems'];
         $budget_query = "INSERT into trip_budget(trip_id, name, category, cost, shared) VALUES ";

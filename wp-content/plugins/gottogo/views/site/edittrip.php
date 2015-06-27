@@ -101,7 +101,7 @@
         var all_items = jQuery(":text");
         var budget_items = [];
         for (var i = 0; i < all_items.length; i++) {
-            if (all_items[i] !== '') {
+            if (all_items[i].value !== '') {
                 if (all_items[i].name.lastIndexOf('budget_') != 0 && all_items[i].name.lastIndexOf('addBdg') != 0) {
                     selected_luggage_items.push([all_items[i].name, all_items[i].value]);
                 } else if (all_items[i].name.lastIndexOf('budget_') === 0) {
@@ -133,6 +133,8 @@
         var touristsCount = jQuery("#touristsCount").val();
         var nightsCount = jQuery("#nightsCount").val();
 
+        console.log(selected_luggage_items);
+
         jQuery.post("<?= get_site_url(); ?>/wp-content/plugins/gottogo/views/site/update_trip_action.php",
             {
                 tripId : tripId, selectedLuggageItems: selected_luggage_items,
@@ -140,6 +142,7 @@
                 budgetItems : budget_items
             },
             function (result) {
+                console.log(result);
                 if (result == true) {
                     jQuery("#tripSuccessMessage").show(400);
                     jQuery("#newTripDataForm").hide();
@@ -359,19 +362,25 @@ function getBudgetTabPanels($trip) {
                         $list[] = $selectedItem;
                     }
                 }
-
                 foreach ($items as $item) {
                     $foundValue = -1;
+                    $found = false;
                     $index = -1;
-                    for ($i = 0; $i < count($list); $i++) {
-                        if (strcmp($list[$i]['name'], $item['name']) == 0) {
-                            $foundValue = $list[$i]['cost'];
-                            $index = $i;
+                    if (count($list) > 0) {
+                        foreach ($list as $key => $value) {
+                            if (strcmp($value['name'], $item['name']) == 0) {
+                                $foundValue = $value['cost'];
+                                $index = $key;
+                                $found = true;
+                                break;
+                            }
+                        }
+
+                        if ($found) {
+                            unset($list[$index]);
                         }
                     }
-                    if ($index > -1) {
-                        unset($list[$index]);
-                    }
+
                     ?>
                     <tr>
                         <td width="30%;" style="border: none !important;">
