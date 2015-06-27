@@ -24,6 +24,10 @@
             display: none;
         }
     }
+    header.home-header.sticky-header {
+        position: fixed!important;
+    }
+    }
 </style>
 <?php if (is_home()) {
     $wrap_class = "home-site";
@@ -31,7 +35,7 @@
     $wrap_class = "site";
 } ?>
 <div class="<?php echo $wrap_class; ?> noprint">
-    <header class="home-header">
+    <header class="home-header sticky-header" style="position: static;">
         <div class="home-logo onetone-logo ">
             <a href="#  ">
                 <?php if (onetone_options_array('logo') != "") { ?>
@@ -71,4 +75,6 @@
         </nav>
         <div class="clear"></div>
     </header>
+</div>
+<div style="height: 65pt;">
 </div>
