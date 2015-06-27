@@ -11,19 +11,44 @@ if ($_SESSION['user']) {
     function updateProfileData(userId) {
         bootbox.confirm("Сигурни ли сте, че искате да промените детайлите си?", function(result) {
             if (result) {
+                jQuery("#profileEditSuccess").hide();
+                jQuery("#fullnameErrorMessage").hide();
+                jQuery("#passwordsErrorMessage").hide();
                 var fullname = jQuery("#edit_fullname").val();
                 var password = jQuery("#edit_password").val();
-                jQuery.post("<?= get_site_url(); ?>/wp-content/plugins/gottogo/views/site/update_user_action.php",
-                    { user_id: userId, fullname: fullname, password: password },
-                    function (result) {
-                        if (result == 1) {
-                            location.reload();
+                var passwordConfirm = jQuery("#edit_password_confirm").val();
+                if (validateProfileForm(fullname, password, passwordConfirm)) {
+                    jQuery("#fullnameErrorMessage").hide();
+                    jQuery("#passwordsErrorMessage").hide();
+
+                    jQuery.post("<?= get_site_url(); ?>/wp-content/plugins/gottogo/views/site/update_user_action.php",
+                        { user_id: userId, fullname: fullname, password: password },
+                        function (result) {
+                            if (result == 1) {
+                                jQuery("#profileEditSuccess").show();
+                                jQuery("#edit_password").val('');
+                                jQuery("#edit_password_confirm").val('');
+                            }
                         }
-                    }
-                );
+                    );
+                }
             }
         });
     }
+
+    function validateProfileForm(fullname, password, passwordConfirm) {
+        var result = true;
+        if (fullname === '') {
+            jQuery("#fullnameErrorMessage").show();
+            result = false;
+        }
+        if (password === '' || passwordConfirm === '' || (password != passwordConfirm)) {
+            jQuery("#passwordsErrorMessage").show();
+            result = false;
+        }
+        return result;
+    }
+
 </script>
 <div>
     <div class="row" id="editProfile" aria-expanded="false" aria-controls="editProfileCollapse" >
@@ -45,7 +70,16 @@ if ($_SESSION['user']) {
                         Това е страницата с личният Ви профил. В нея може да намерите данните, които сте въвели при регистрация и при нужда да ги редактирате.
                     </div>
                 </div>
-                </br>
+                <br/>
+                <div class="alert alert-info collapse alert-dismissible" id="fullnameErrorMessage">
+                    'Вашето име' е задължително поле!
+                </div>
+                <div class="alert alert-info collapse alert-dismissible" id="passwordsErrorMessage">
+                    Паролите трябва да са непразни и да съвпадат!
+                </div>
+                <div class="alert alert-success collapse alert-dismissible" id="profileEditSuccess">
+                    Вие успешно редактирахте профила си!
+                </div>
                 <form action="" method="post" id="edit_form" enctype="application/x-www-form-urlencoded">
                     <div class="form-group">
                         <label for="edit_fullname" class="control-label">Вашето име</label>

@@ -27,7 +27,6 @@ function updateTrip() {
         return false;
     }
 
-
     $deleteQuery = "DELETE FROM trip_item where trip_id = " . $trip_id;
     mysqli_query($connection, $deleteQuery);
 
@@ -47,7 +46,7 @@ function updateTrip() {
             return false;
         }
     }
-    
+
     $deleteQuery = "DELETE FROM trip_budget where trip_id = " . $trip_id;
     mysqli_query($connection, $deleteQuery);
 
