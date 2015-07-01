@@ -27,6 +27,8 @@
     header.home-header.sticky-header {
         position: fixed!important;
     }
+    .custom-background {
+        background-size: 100% !important;
     }
 </style>
 <?php if (is_home()) {

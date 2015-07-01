@@ -16,6 +16,7 @@ $background = "";
 	}
 	}
 
+    $background .= "background-size: 100%;";
 return $background;
 }
 

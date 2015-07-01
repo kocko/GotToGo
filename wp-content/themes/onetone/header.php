@@ -16,6 +16,11 @@
 <body <?php body_class(); ?>>
 <script type="application/javascript" src="<?= get_site_url(); ?>/wp-includes/bootstrap/js/bootstrap.min.js"></script>
 <?php if(is_home()){$wrap_class = "home-site";}else{$wrap_class = "site";}?>
+<style>
+    .custom-background {
+        background-size: 100% !important;
+    }
+</style>
 <div class="<?php echo $wrap_class;?>">
 	<header class="home-header">
 		<div class="home-logo onetone-logo ">
