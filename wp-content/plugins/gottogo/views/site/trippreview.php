@@ -122,9 +122,12 @@ function getBudget($id, $people, $nights) {
         }
     }
     ?>
-    <div class="panel-default">
-        <div class="panel-heading pull-right">
-            <h2>Общи разходи: <?= $total; ?> лв.</h2>
+    <div class="row">
+        <div class="panel-default">
+            <div class="panel-heading pull-right">
+
+                <h2>Общи разходи: <?= $total; ?> лв.</h2>
+            </div>
         </div>
     </div>
     <?php
